@@ -10,6 +10,15 @@ Scaffold-Base is a fork of Scaffold-ETH2 ready to ship to Base. This fork provid
 
 ![Scaffold-Base)](https://github.com/damianmarti/se-2/assets/466652/eac667a7-68fb-4f69-a427-126f7de4114d)
 
+## Smart Wallet ERC 4337
+
+Smart Wallet ERC 4337 support using Account Kit from Alchemy https://accountkit.alchemy.com
+
+
+![localhost_3000_smartWallet](https://github.com/BuidlGuidl/scaffold-base/assets/466652/ae576140-afac-4652-8c09-504a0f1c521c)
+
+## Documentation
+
 We highly recommend the Scaffold-ETH2 docs as the primary guideline.
 
 # (forked from 🏗 Scaffold-ETH2)

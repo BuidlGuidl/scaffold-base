@@ -14,6 +14,9 @@
     "vercel:yolo": "vercel --build-env NEXT_PUBLIC_IGNORE_BUILD_ERROR=true"
   },
   "dependencies": {
+    "@alchemy/aa-accounts": "^1.2.3",
+    "@alchemy/aa-alchemy": "^1.2.3",
+    "@alchemy/aa-core": "^1.2.3",
     "@ethersproject/providers": "^5.7.2",
     "@heroicons/react": "^2.0.11",
     "@rainbow-me/rainbowkit": "1.3.5",
@@ -31,7 +34,7 @@
     "react-hot-toast": "^2.4.0",
     "use-debounce": "^8.0.4",
     "usehooks-ts": "^2.13.0",
-    "viem": "1.19.9",
+    "viem": "^1.21.0",
     "wagmi": "1.4.12",
     "zustand": "^4.1.2"
   },

@@ -56,6 +56,27 @@ export const NETWORKS_EXTRA_DATA: Record<string, ChainAttributes> = {
 };
 
 /**
+ * Gives the block explorer UserOp transaction URL, returns empty string if the network is a local chain
+ */
+export function getUserOpExplorerTxLink(chainId: number, txnHash: string) {
+  const chainNames = Object.keys(chains);
+
+  const targetChainArr = chainNames.filter(chainName => {
+    const wagmiChain = chains[chainName as keyof typeof chains];
+    return wagmiChain.id === chainId;
+  });
+
+  if (targetChainArr.length === 0) {
+    return "";
+  }
+
+  const targetChain = targetChainArr[0] as keyof typeof chains;
+  if (chains[targetChain].id === chains.baseGoerli.id)
+    return `https://app.jiffyscan.xyz/userOpHash/${txnHash}?network=base-testnet`;
+  return `https://app.jiffyscan.xyz/userOpHash/${txnHash}?network=${chains[targetChain].network}`;
+}
+
+/**
  * Gives the block explorer transaction URL, returns empty string if the network is a local chain
  */
 export function getBlockExplorerTxLink(chainId: number, txnHash: string) {

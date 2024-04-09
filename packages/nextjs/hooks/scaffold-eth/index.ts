@@ -13,3 +13,5 @@ export * from "./useTransactor";
 export * from "./useFetchBlocks";
 export * from "./useContractLogs";
 export * from "./useAutoConnect";
+export * from "./useSmartAccount";
+export * from "./useSmartTransactor";
