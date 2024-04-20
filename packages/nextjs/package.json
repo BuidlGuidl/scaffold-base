@@ -54,5 +54,8 @@
     "type-fest": "^4.6.0",
     "typescript": "^5.1.6",
     "vercel": "^32.4.1"
+  },
+  "resolutions": {
+    "@coinbase/wallet-sdk": "4.0.0-beta.7"
   }
 }
