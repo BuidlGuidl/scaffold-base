@@ -1,0 +1,1020 @@
+{
+  "address": "0x97D12fC6cdfa2232AA5AEa3Eea9872ddE8D78E3D",
+  "abi": [
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "ownerAddress",
+          "type": "address"
+        },
+        {
+          "internalType": "address",
+          "name": "trustScriptTokenAddress",
+          "type": "address"
+        },
+        {
+          "internalType": "address",
+          "name": "trustScriptProductReviewAttesterAddress",
+          "type": "address"
+        }
+      ],
+      "stateMutability": "nonpayable",
+      "type": "constructor"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "uint256",
+          "name": "productId",
+          "type": "uint256"
+        }
+      ],
+      "name": "TrustScriptShop__ExistedProductId",
+      "type": "error"
+    },
+    {
+      "inputs": [],
+      "name": "TrustScriptShop__FailedToSendETH",
+      "type": "error"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "uint256",
+          "name": "productId",
+          "type": "uint256"
+        }
+      ],
+      "name": "TrustScriptShop__NotExistedProductId",
+      "type": "error"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "attesterAddress",
+          "type": "address"
+        }
+      ],
+      "name": "TrustScriptShop__UnauthorizedAttester",
+      "type": "error"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "uint256",
+          "name": "amountOfETH",
+          "type": "uint256"
+        },
+        {
+          "internalType": "uint256",
+          "name": "priceInETH",
+          "type": "uint256"
+        }
+      ],
+      "name": "TrustScriptShop__UnequalAmountOfETHAndPriceInETH",
+      "type": "error"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "uint256",
+          "name": "amountOfToken",
+          "type": "uint256"
+        },
+        {
+          "internalType": "uint256",
+          "name": "priceInToken",
+          "type": "uint256"
+        }
+      ],
+      "name": "TrustScriptShop__UnequalAmountOfTokenAndPriceInToken",
+      "type": "error"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "uint256",
+          "name": "priceInETH",
+          "type": "uint256"
+        },
+        {
+          "internalType": "uint256",
+          "name": "priceInToken",
+          "type": "uint256"
+        }
+      ],
+      "name": "TrustScriptShop__UnequalPriceInETHAndPriceInToken",
+      "type": "error"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "components": [
+            {
+              "internalType": "uint256",
+              "name": "id",
+              "type": "uint256"
+            },
+            {
+              "internalType": "string",
+              "name": "name",
+              "type": "string"
+            },
+            {
+              "internalType": "uint256",
+              "name": "priceInETH",
+              "type": "uint256"
+            },
+            {
+              "internalType": "uint256",
+              "name": "priceInToken",
+              "type": "uint256"
+            }
+          ],
+          "indexed": false,
+          "internalType": "struct TrustScriptShop.Product",
+          "name": "product",
+          "type": "tuple"
+        }
+      ],
+      "name": "AddProduct",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "components": [
+            {
+              "internalType": "uint256",
+              "name": "id",
+              "type": "uint256"
+            },
+            {
+              "internalType": "string",
+              "name": "name",
+              "type": "string"
+            },
+            {
+              "internalType": "uint256",
+              "name": "priceInETH",
+              "type": "uint256"
+            },
+            {
+              "internalType": "uint256",
+              "name": "priceInToken",
+              "type": "uint256"
+            }
+          ],
+          "indexed": false,
+          "internalType": "struct TrustScriptShop.Product",
+          "name": "product",
+          "type": "tuple"
+        }
+      ],
+      "name": "BuyProductWithETH",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "components": [
+            {
+              "internalType": "uint256",
+              "name": "id",
+              "type": "uint256"
+            },
+            {
+              "internalType": "string",
+              "name": "name",
+              "type": "string"
+            },
+            {
+              "internalType": "uint256",
+              "name": "priceInETH",
+              "type": "uint256"
+            },
+            {
+              "internalType": "uint256",
+              "name": "priceInToken",
+              "type": "uint256"
+            }
+          ],
+          "indexed": false,
+          "internalType": "struct TrustScriptShop.Product",
+          "name": "product",
+          "type": "tuple"
+        }
+      ],
+      "name": "BuyProductWithToken",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": false,
+          "internalType": "address",
+          "name": "beneficiary",
+          "type": "address"
+        },
+        {
+          "indexed": false,
+          "internalType": "uint256",
+          "name": "amountOfToken",
+          "type": "uint256"
+        }
+      ],
+      "name": "MintTokenToBuyer",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": true,
+          "internalType": "address",
+          "name": "previousOwner",
+          "type": "address"
+        },
+        {
+          "indexed": true,
+          "internalType": "address",
+          "name": "newOwner",
+          "type": "address"
+        }
+      ],
+      "name": "OwnershipTransferred",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "components": [
+            {
+              "internalType": "uint256",
+              "name": "productId",
+              "type": "uint256"
+            },
+            {
+              "internalType": "address",
+              "name": "buyerAddress",
+              "type": "address"
+            },
+            {
+              "internalType": "string",
+              "name": "review",
+              "type": "string"
+            }
+          ],
+          "indexed": false,
+          "internalType": "struct ProductReview",
+          "name": "productReview",
+          "type": "tuple"
+        },
+        {
+          "indexed": false,
+          "internalType": "bytes32",
+          "name": "uid",
+          "type": "bytes32"
+        }
+      ],
+      "name": "ReviewProduct",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": false,
+          "internalType": "uint256",
+          "name": "amountOfETH",
+          "type": "uint256"
+        }
+      ],
+      "name": "WithdrawETH",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": false,
+          "internalType": "uint256",
+          "name": "amountOfToken",
+          "type": "uint256"
+        }
+      ],
+      "name": "WithdrawToken",
+      "type": "event"
+    },
+    {
+      "inputs": [],
+      "name": "REVIEW_PRODUCT_REWARD",
+      "outputs": [
+        {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "TOKENS_PER_ETH",
+      "outputs": [
+        {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "components": [
+            {
+              "internalType": "uint256",
+              "name": "id",
+              "type": "uint256"
+            },
+            {
+              "internalType": "string",
+              "name": "name",
+              "type": "string"
+            },
+            {
+              "internalType": "uint256",
+              "name": "priceInETH",
+              "type": "uint256"
+            },
+            {
+              "internalType": "uint256",
+              "name": "priceInToken",
+              "type": "uint256"
+            }
+          ],
+          "internalType": "struct TrustScriptShop.Product",
+          "name": "product",
+          "type": "tuple"
+        }
+      ],
+      "name": "addProduct",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "",
+          "type": "address"
+        }
+      ],
+      "name": "allowedAttesters",
+      "outputs": [
+        {
+          "internalType": "bool",
+          "name": "",
+          "type": "bool"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "uint256",
+          "name": "id",
+          "type": "uint256"
+        }
+      ],
+      "name": "buyProductWithETH",
+      "outputs": [],
+      "stateMutability": "payable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "uint256",
+          "name": "id",
+          "type": "uint256"
+        },
+        {
+          "internalType": "uint256",
+          "name": "amountOfToken",
+          "type": "uint256"
+        }
+      ],
+      "name": "buyProductWithToken",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "getAllProductReviews",
+      "outputs": [
+        {
+          "components": [
+            {
+              "internalType": "uint256",
+              "name": "productId",
+              "type": "uint256"
+            },
+            {
+              "internalType": "address",
+              "name": "buyerAddress",
+              "type": "address"
+            },
+            {
+              "internalType": "string",
+              "name": "review",
+              "type": "string"
+            }
+          ],
+          "internalType": "struct ProductReview[]",
+          "name": "allProductReviews",
+          "type": "tuple[]"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "getAllProducts",
+      "outputs": [
+        {
+          "components": [
+            {
+              "internalType": "uint256",
+              "name": "id",
+              "type": "uint256"
+            },
+            {
+              "internalType": "string",
+              "name": "name",
+              "type": "string"
+            },
+            {
+              "internalType": "uint256",
+              "name": "priceInETH",
+              "type": "uint256"
+            },
+            {
+              "internalType": "uint256",
+              "name": "priceInToken",
+              "type": "uint256"
+            }
+          ],
+          "internalType": "struct TrustScriptShop.Product[]",
+          "name": "allProducts",
+          "type": "tuple[]"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "numberOfProductReviews",
+      "outputs": [
+        {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "numberOfProducts",
+      "outputs": [
+        {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "owner",
+      "outputs": [
+        {
+          "internalType": "address",
+          "name": "",
+          "type": "address"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "name": "productReviewsArray",
+      "outputs": [
+        {
+          "internalType": "uint256",
+          "name": "productId",
+          "type": "uint256"
+        },
+        {
+          "internalType": "address",
+          "name": "buyerAddress",
+          "type": "address"
+        },
+        {
+          "internalType": "string",
+          "name": "review",
+          "type": "string"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "name": "products",
+      "outputs": [
+        {
+          "internalType": "uint256",
+          "name": "id",
+          "type": "uint256"
+        },
+        {
+          "internalType": "string",
+          "name": "name",
+          "type": "string"
+        },
+        {
+          "internalType": "uint256",
+          "name": "priceInETH",
+          "type": "uint256"
+        },
+        {
+          "internalType": "uint256",
+          "name": "priceInToken",
+          "type": "uint256"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "name": "productsArray",
+      "outputs": [
+        {
+          "internalType": "uint256",
+          "name": "id",
+          "type": "uint256"
+        },
+        {
+          "internalType": "string",
+          "name": "name",
+          "type": "string"
+        },
+        {
+          "internalType": "uint256",
+          "name": "priceInETH",
+          "type": "uint256"
+        },
+        {
+          "internalType": "uint256",
+          "name": "priceInToken",
+          "type": "uint256"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "name": "productsMapping",
+      "outputs": [
+        {
+          "internalType": "bool",
+          "name": "",
+          "type": "bool"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "renounceOwnership",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "uint256",
+          "name": "id",
+          "type": "uint256"
+        },
+        {
+          "internalType": "string",
+          "name": "review",
+          "type": "string"
+        }
+      ],
+      "name": "reviewProduct",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "newOwner",
+          "type": "address"
+        }
+      ],
+      "name": "transferOwnership",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "trustScriptProductReviewAttester",
+      "outputs": [
+        {
+          "internalType": "contract TrustScriptProductReviewAttester",
+          "name": "",
+          "type": "address"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "trustScriptToken",
+      "outputs": [
+        {
+          "internalType": "contract TrustScriptToken",
+          "name": "",
+          "type": "address"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "withdrawETH",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "withdrawToken",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    }
+  ],
+  "transactionHash": "0xe746f57c06e63ca807f8486b16c71ba29e67de2d0dce42418c6b77ef4fb74430",
+  "receipt": {
+    "to": null,
+    "from": "0x35fAadD6fC68619b72A7Bfb871eDcC069C2f1bc3",
+    "contractAddress": "0x97D12fC6cdfa2232AA5AEa3Eea9872ddE8D78E3D",
+    "transactionIndex": 11,
+    "gasUsed": "1751632",
+    "logsBloom": "0x00000000000000000000000000000000000000000000000000800000000000000000000000000000000000000000000004000000000000000000000000000000000000000000000000000000000000000001000000000000000000000000000000000000020000010000000000000800000000000000000000000000000000400000000000000002000000000000000000000000000000000000000000000000000000000000400000000000000000000000000001000000000000000000000000000000000000000000000000000000000000000000000000000000000020000000000000000000000000000000000000000000000000800000000000000000",
+    "blockHash": "0xadcdd53a29bb18c8a7fe4abc963143558bfd60d5d0611b1221bac79d8e96e186",
+    "transactionHash": "0xe746f57c06e63ca807f8486b16c71ba29e67de2d0dce42418c6b77ef4fb74430",
+    "logs": [
+      {
+        "transactionIndex": 11,
+        "blockNumber": 11672321,
+        "transactionHash": "0xe746f57c06e63ca807f8486b16c71ba29e67de2d0dce42418c6b77ef4fb74430",
+        "address": "0x97D12fC6cdfa2232AA5AEa3Eea9872ddE8D78E3D",
+        "topics": [
+          "0x8be0079c531659141344cd1fd0a4f28419497f9722a3daafe3b4186f6b6457e0",
+          "0x0000000000000000000000000000000000000000000000000000000000000000",
+          "0x00000000000000000000000035faadd6fc68619b72a7bfb871edcc069c2f1bc3"
+        ],
+        "data": "0x",
+        "logIndex": 4,
+        "blockHash": "0xadcdd53a29bb18c8a7fe4abc963143558bfd60d5d0611b1221bac79d8e96e186"
+      },
+      {
+        "transactionIndex": 11,
+        "blockNumber": 11672321,
+        "transactionHash": "0xe746f57c06e63ca807f8486b16c71ba29e67de2d0dce42418c6b77ef4fb74430",
+        "address": "0x97D12fC6cdfa2232AA5AEa3Eea9872ddE8D78E3D",
+        "topics": [
+          "0x8be0079c531659141344cd1fd0a4f28419497f9722a3daafe3b4186f6b6457e0",
+          "0x00000000000000000000000035faadd6fc68619b72a7bfb871edcc069c2f1bc3",
+          "0x00000000000000000000000035faadd6fc68619b72a7bfb871edcc069c2f1bc3"
+        ],
+        "data": "0x",
+        "logIndex": 5,
+        "blockHash": "0xadcdd53a29bb18c8a7fe4abc963143558bfd60d5d0611b1221bac79d8e96e186"
+      }
+    ],
+    "blockNumber": 11672321,
+    "cumulativeGasUsed": "2192218",
+    "status": 1,
+    "byzantium": true
+  },
+  "args": [
+    "0x35fAadD6fC68619b72A7Bfb871eDcC069C2f1bc3",
+    "0x519bFCA72320728dFfD698D9cE8b7FC6f4955431",
+    "0x80Eb3ccE63E5beDFe067e56e8c3dCCcbf1522247"
+  ],
+  "numDeployments": 1,
+  "solcInputHash": "600a4f1d04d1120bafc3a677d8e15185",
+  "metadata": "{\"compiler\":{\"version\":\"0.8.17+commit.8df45f5f\"},\"language\":\"Solidity\",\"output\":{\"abi\":[{\"inputs\":[{\"internalType\":\"address\",\"name\":\"ownerAddress\",\"type\":\"address\"},{\"internalType\":\"address\",\"name\":\"trustScriptTokenAddress\",\"type\":\"address\"},{\"internalType\":\"address\",\"name\":\"trustScriptProductReviewAttesterAddress\",\"type\":\"address\"}],\"stateMutability\":\"nonpayable\",\"type\":\"constructor\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"productId\",\"type\":\"uint256\"}],\"name\":\"TrustScriptShop__ExistedProductId\",\"type\":\"error\"},{\"inputs\":[],\"name\":\"TrustScriptShop__FailedToSendETH\",\"type\":\"error\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"productId\",\"type\":\"uint256\"}],\"name\":\"TrustScriptShop__NotExistedProductId\",\"type\":\"error\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"attesterAddress\",\"type\":\"address\"}],\"name\":\"TrustScriptShop__UnauthorizedAttester\",\"type\":\"error\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"amountOfETH\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"priceInETH\",\"type\":\"uint256\"}],\"name\":\"TrustScriptShop__UnequalAmountOfETHAndPriceInETH\",\"type\":\"error\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"amountOfToken\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"priceInToken\",\"type\":\"uint256\"}],\"name\":\"TrustScriptShop__UnequalAmountOfTokenAndPriceInToken\",\"type\":\"error\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"priceInETH\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"priceInToken\",\"type\":\"uint256\"}],\"name\":\"TrustScriptShop__UnequalPriceInETHAndPriceInToken\",\"type\":\"error\"},{\"anonymous\":false,\"inputs\":[{\"components\":[{\"internalType\":\"uint256\",\"name\":\"id\",\"type\":\"uint256\"},{\"internalType\":\"string\",\"name\":\"name\",\"type\":\"string\"},{\"internalType\":\"uint256\",\"name\":\"priceInETH\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"priceInToken\",\"type\":\"uint256\"}],\"indexed\":false,\"internalType\":\"struct TrustScriptShop.Product\",\"name\":\"product\",\"type\":\"tuple\"}],\"name\":\"AddProduct\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"components\":[{\"internalType\":\"uint256\",\"name\":\"id\",\"type\":\"uint256\"},{\"internalType\":\"string\",\"name\":\"name\",\"type\":\"string\"},{\"internalType\":\"uint256\",\"name\":\"priceInETH\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"priceInToken\",\"type\":\"uint256\"}],\"indexed\":false,\"internalType\":\"struct TrustScriptShop.Product\",\"name\":\"product\",\"type\":\"tuple\"}],\"name\":\"BuyProductWithETH\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"components\":[{\"internalType\":\"uint256\",\"name\":\"id\",\"type\":\"uint256\"},{\"internalType\":\"string\",\"name\":\"name\",\"type\":\"string\"},{\"internalType\":\"uint256\",\"name\":\"priceInETH\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"priceInToken\",\"type\":\"uint256\"}],\"indexed\":false,\"internalType\":\"struct TrustScriptShop.Product\",\"name\":\"product\",\"type\":\"tuple\"}],\"name\":\"BuyProductWithToken\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"address\",\"name\":\"beneficiary\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"amountOfToken\",\"type\":\"uint256\"}],\"name\":\"MintTokenToBuyer\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"previousOwner\",\"type\":\"address\"},{\"indexed\":true,\"internalType\":\"address\",\"name\":\"newOwner\",\"type\":\"address\"}],\"name\":\"OwnershipTransferred\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"components\":[{\"internalType\":\"uint256\",\"name\":\"productId\",\"type\":\"uint256\"},{\"internalType\":\"address\",\"name\":\"buyerAddress\",\"type\":\"address\"},{\"internalType\":\"string\",\"name\":\"review\",\"type\":\"string\"}],\"indexed\":false,\"internalType\":\"struct ProductReview\",\"name\":\"productReview\",\"type\":\"tuple\"},{\"indexed\":false,\"internalType\":\"bytes32\",\"name\":\"uid\",\"type\":\"bytes32\"}],\"name\":\"ReviewProduct\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"amountOfETH\",\"type\":\"uint256\"}],\"name\":\"WithdrawETH\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"amountOfToken\",\"type\":\"uint256\"}],\"name\":\"WithdrawToken\",\"type\":\"event\"},{\"inputs\":[],\"name\":\"REVIEW_PRODUCT_REWARD\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"TOKENS_PER_ETH\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"components\":[{\"internalType\":\"uint256\",\"name\":\"id\",\"type\":\"uint256\"},{\"internalType\":\"string\",\"name\":\"name\",\"type\":\"string\"},{\"internalType\":\"uint256\",\"name\":\"priceInETH\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"priceInToken\",\"type\":\"uint256\"}],\"internalType\":\"struct TrustScriptShop.Product\",\"name\":\"product\",\"type\":\"tuple\"}],\"name\":\"addProduct\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"name\":\"allowedAttesters\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"id\",\"type\":\"uint256\"}],\"name\":\"buyProductWithETH\",\"outputs\":[],\"stateMutability\":\"payable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"id\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"amountOfToken\",\"type\":\"uint256\"}],\"name\":\"buyProductWithToken\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"getAllProductReviews\",\"outputs\":[{\"components\":[{\"internalType\":\"uint256\",\"name\":\"productId\",\"type\":\"uint256\"},{\"internalType\":\"address\",\"name\":\"buyerAddress\",\"type\":\"address\"},{\"internalType\":\"string\",\"name\":\"review\",\"type\":\"string\"}],\"internalType\":\"struct ProductReview[]\",\"name\":\"allProductReviews\",\"type\":\"tuple[]\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"getAllProducts\",\"outputs\":[{\"components\":[{\"internalType\":\"uint256\",\"name\":\"id\",\"type\":\"uint256\"},{\"internalType\":\"string\",\"name\":\"name\",\"type\":\"string\"},{\"internalType\":\"uint256\",\"name\":\"priceInETH\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"priceInToken\",\"type\":\"uint256\"}],\"internalType\":\"struct TrustScriptShop.Product[]\",\"name\":\"allProducts\",\"type\":\"tuple[]\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"numberOfProductReviews\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"numberOfProducts\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"owner\",\"outputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"name\":\"productReviewsArray\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"productId\",\"type\":\"uint256\"},{\"internalType\":\"address\",\"name\":\"buyerAddress\",\"type\":\"address\"},{\"internalType\":\"string\",\"name\":\"review\",\"type\":\"string\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"name\":\"products\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"id\",\"type\":\"uint256\"},{\"internalType\":\"string\",\"name\":\"name\",\"type\":\"string\"},{\"internalType\":\"uint256\",\"name\":\"priceInETH\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"priceInToken\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"name\":\"productsArray\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"id\",\"type\":\"uint256\"},{\"internalType\":\"string\",\"name\":\"name\",\"type\":\"string\"},{\"internalType\":\"uint256\",\"name\":\"priceInETH\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"priceInToken\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"name\":\"productsMapping\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"renounceOwnership\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"id\",\"type\":\"uint256\"},{\"internalType\":\"string\",\"name\":\"review\",\"type\":\"string\"}],\"name\":\"reviewProduct\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"newOwner\",\"type\":\"address\"}],\"name\":\"transferOwnership\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"trustScriptProductReviewAttester\",\"outputs\":[{\"internalType\":\"contract TrustScriptProductReviewAttester\",\"name\":\"\",\"type\":\"address\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"trustScriptToken\",\"outputs\":[{\"internalType\":\"contract TrustScriptToken\",\"name\":\"\",\"type\":\"address\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"withdrawETH\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"withdrawToken\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"}],\"devdoc\":{\"kind\":\"dev\",\"methods\":{\"owner()\":{\"details\":\"Returns the address of the current owner.\"},\"renounceOwnership()\":{\"details\":\"Leaves the contract without owner. It will not be possible to call `onlyOwner` functions. Can only be called by the current owner. NOTE: Renouncing ownership will leave the contract without an owner, thereby disabling any functionality that is only available to the owner.\"},\"transferOwnership(address)\":{\"details\":\"Transfers ownership of the contract to a new account (`newOwner`). Can only be called by the current owner.\"}},\"version\":1},\"userdoc\":{\"kind\":\"user\",\"methods\":{},\"version\":1}},\"settings\":{\"compilationTarget\":{\"contracts/TrustScriptShop.sol\":\"TrustScriptShop\"},\"evmVersion\":\"london\",\"libraries\":{},\"metadata\":{\"bytecodeHash\":\"ipfs\",\"useLiteralContent\":true},\"optimizer\":{\"enabled\":true,\"runs\":200},\"remappings\":[]},\"sources\":{\"@ethereum-attestation-service/eas-contracts/contracts/Common.sol\":{\"content\":\"// SPDX-License-Identifier: MIT\\n\\npragma solidity ^0.8.0;\\n\\n// A representation of an empty/uninitialized UID.\\nbytes32 constant EMPTY_UID = 0;\\n\\n// A zero expiration represents an non-expiring attestation.\\nuint64 constant NO_EXPIRATION_TIME = 0;\\n\\nerror AccessDenied();\\nerror DeadlineExpired();\\nerror InvalidEAS();\\nerror InvalidLength();\\nerror InvalidSignature();\\nerror NotFound();\\n\\n/// @notice A struct representing ECDSA signature data.\\nstruct Signature {\\n    uint8 v; // The recovery ID.\\n    bytes32 r; // The x-coordinate of the nonce R.\\n    bytes32 s; // The signature data.\\n}\\n\\n/// @notice A struct representing a single attestation.\\nstruct Attestation {\\n    bytes32 uid; // A unique identifier of the attestation.\\n    bytes32 schema; // The unique identifier of the schema.\\n    uint64 time; // The time when the attestation was created (Unix timestamp).\\n    uint64 expirationTime; // The time when the attestation expires (Unix timestamp).\\n    uint64 revocationTime; // The time when the attestation was revoked (Unix timestamp).\\n    bytes32 refUID; // The UID of the related attestation.\\n    address recipient; // The recipient of the attestation.\\n    address attester; // The attester/sender of the attestation.\\n    bool revocable; // Whether the attestation is revocable.\\n    bytes data; // Custom attestation data.\\n}\\n\\n/// @notice A helper function to work with unchecked iterators in loops.\\nfunction uncheckedInc(uint256 i) pure returns (uint256 j) {\\n    unchecked {\\n        j = i + 1;\\n    }\\n}\\n\",\"keccak256\":\"0x957bd2e6d0d6d637f86208b135c29fbaf4412cb08e5e7a61ede16b80561bf685\",\"license\":\"MIT\"},\"@ethereum-attestation-service/eas-contracts/contracts/IEAS.sol\":{\"content\":\"// SPDX-License-Identifier: MIT\\n\\npragma solidity ^0.8.0;\\n\\nimport { ISchemaRegistry } from \\\"./ISchemaRegistry.sol\\\";\\nimport { ISemver } from \\\"./ISemver.sol\\\";\\nimport { Attestation, Signature } from \\\"./Common.sol\\\";\\n\\n/// @notice A struct representing the arguments of the attestation request.\\nstruct AttestationRequestData {\\n    address recipient; // The recipient of the attestation.\\n    uint64 expirationTime; // The time when the attestation expires (Unix timestamp).\\n    bool revocable; // Whether the attestation is revocable.\\n    bytes32 refUID; // The UID of the related attestation.\\n    bytes data; // Custom attestation data.\\n    uint256 value; // An explicit ETH amount to send to the resolver. This is important to prevent accidental user errors.\\n}\\n\\n/// @notice A struct representing the full arguments of the attestation request.\\nstruct AttestationRequest {\\n    bytes32 schema; // The unique identifier of the schema.\\n    AttestationRequestData data; // The arguments of the attestation request.\\n}\\n\\n/// @notice A struct representing the full arguments of the full delegated attestation request.\\nstruct DelegatedAttestationRequest {\\n    bytes32 schema; // The unique identifier of the schema.\\n    AttestationRequestData data; // The arguments of the attestation request.\\n    Signature signature; // The ECDSA signature data.\\n    address attester; // The attesting account.\\n    uint64 deadline; // The deadline of the signature/request.\\n}\\n\\n/// @notice A struct representing the full arguments of the multi attestation request.\\nstruct MultiAttestationRequest {\\n    bytes32 schema; // The unique identifier of the schema.\\n    AttestationRequestData[] data; // The arguments of the attestation request.\\n}\\n\\n/// @notice A struct representing the full arguments of the delegated multi attestation request.\\nstruct MultiDelegatedAttestationRequest {\\n    bytes32 schema; // The unique identifier of the schema.\\n    AttestationRequestData[] data; // The arguments of the attestation requests.\\n    Signature[] signatures; // The ECDSA signatures data. Please note that the signatures are assumed to be signed with increasing nonces.\\n    address attester; // The attesting account.\\n    uint64 deadline; // The deadline of the signature/request.\\n}\\n\\n/// @notice A struct representing the arguments of the revocation request.\\nstruct RevocationRequestData {\\n    bytes32 uid; // The UID of the attestation to revoke.\\n    uint256 value; // An explicit ETH amount to send to the resolver. This is important to prevent accidental user errors.\\n}\\n\\n/// @notice A struct representing the full arguments of the revocation request.\\nstruct RevocationRequest {\\n    bytes32 schema; // The unique identifier of the schema.\\n    RevocationRequestData data; // The arguments of the revocation request.\\n}\\n\\n/// @notice A struct representing the arguments of the full delegated revocation request.\\nstruct DelegatedRevocationRequest {\\n    bytes32 schema; // The unique identifier of the schema.\\n    RevocationRequestData data; // The arguments of the revocation request.\\n    Signature signature; // The ECDSA signature data.\\n    address revoker; // The revoking account.\\n    uint64 deadline; // The deadline of the signature/request.\\n}\\n\\n/// @notice A struct representing the full arguments of the multi revocation request.\\nstruct MultiRevocationRequest {\\n    bytes32 schema; // The unique identifier of the schema.\\n    RevocationRequestData[] data; // The arguments of the revocation request.\\n}\\n\\n/// @notice A struct representing the full arguments of the delegated multi revocation request.\\nstruct MultiDelegatedRevocationRequest {\\n    bytes32 schema; // The unique identifier of the schema.\\n    RevocationRequestData[] data; // The arguments of the revocation requests.\\n    Signature[] signatures; // The ECDSA signatures data. Please note that the signatures are assumed to be signed with increasing nonces.\\n    address revoker; // The revoking account.\\n    uint64 deadline; // The deadline of the signature/request.\\n}\\n\\n/// @title IEAS\\n/// @notice EAS - Ethereum Attestation Service interface.\\ninterface IEAS is ISemver {\\n    /// @notice Emitted when an attestation has been made.\\n    /// @param recipient The recipient of the attestation.\\n    /// @param attester The attesting account.\\n    /// @param uid The UID of the new attestation.\\n    /// @param schemaUID The UID of the schema.\\n    event Attested(address indexed recipient, address indexed attester, bytes32 uid, bytes32 indexed schemaUID);\\n\\n    /// @notice Emitted when an attestation has been revoked.\\n    /// @param recipient The recipient of the attestation.\\n    /// @param attester The attesting account.\\n    /// @param schemaUID The UID of the schema.\\n    /// @param uid The UID the revoked attestation.\\n    event Revoked(address indexed recipient, address indexed attester, bytes32 uid, bytes32 indexed schemaUID);\\n\\n    /// @notice Emitted when a data has been timestamped.\\n    /// @param data The data.\\n    /// @param timestamp The timestamp.\\n    event Timestamped(bytes32 indexed data, uint64 indexed timestamp);\\n\\n    /// @notice Emitted when a data has been revoked.\\n    /// @param revoker The address of the revoker.\\n    /// @param data The data.\\n    /// @param timestamp The timestamp.\\n    event RevokedOffchain(address indexed revoker, bytes32 indexed data, uint64 indexed timestamp);\\n\\n    /// @notice Returns the address of the global schema registry.\\n    /// @return The address of the global schema registry.\\n    function getSchemaRegistry() external view returns (ISchemaRegistry);\\n\\n    /// @notice Attests to a specific schema.\\n    /// @param request The arguments of the attestation request.\\n    /// @return The UID of the new attestation.\\n    ///\\n    /// Example:\\n    ///     attest({\\n    ///         schema: \\\"0facc36681cbe2456019c1b0d1e7bedd6d1d40f6f324bf3dd3a4cef2999200a0\\\",\\n    ///         data: {\\n    ///             recipient: \\\"0xdEADBeAFdeAdbEafdeadbeafDeAdbEAFdeadbeaf\\\",\\n    ///             expirationTime: 0,\\n    ///             revocable: true,\\n    ///             refUID: \\\"0x0000000000000000000000000000000000000000000000000000000000000000\\\",\\n    ///             data: \\\"0xF00D\\\",\\n    ///             value: 0\\n    ///         }\\n    ///     })\\n    function attest(AttestationRequest calldata request) external payable returns (bytes32);\\n\\n    /// @notice Attests to a specific schema via the provided ECDSA signature.\\n    /// @param delegatedRequest The arguments of the delegated attestation request.\\n    /// @return The UID of the new attestation.\\n    ///\\n    /// Example:\\n    ///     attestByDelegation({\\n    ///         schema: '0x8e72f5bc0a8d4be6aa98360baa889040c50a0e51f32dbf0baa5199bd93472ebc',\\n    ///         data: {\\n    ///             recipient: '0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266',\\n    ///             expirationTime: 1673891048,\\n    ///             revocable: true,\\n    ///             refUID: '0x0000000000000000000000000000000000000000000000000000000000000000',\\n    ///             data: '0x1234',\\n    ///             value: 0\\n    ///         },\\n    ///         signature: {\\n    ///             v: 28,\\n    ///             r: '0x148c...b25b',\\n    ///             s: '0x5a72...be22'\\n    ///         },\\n    ///         attester: '0xc5E8740aD971409492b1A63Db8d83025e0Fc427e',\\n    ///         deadline: 1673891048\\n    ///     })\\n    function attestByDelegation(\\n        DelegatedAttestationRequest calldata delegatedRequest\\n    ) external payable returns (bytes32);\\n\\n    /// @notice Attests to multiple schemas.\\n    /// @param multiRequests The arguments of the multi attestation requests. The requests should be grouped by distinct\\n    ///     schema ids to benefit from the best batching optimization.\\n    /// @return The UIDs of the new attestations.\\n    ///\\n    /// Example:\\n    ///     multiAttest([{\\n    ///         schema: '0x33e9094830a5cba5554d1954310e4fbed2ef5f859ec1404619adea4207f391fd',\\n    ///         data: [{\\n    ///             recipient: '0xdEADBeAFdeAdbEafdeadbeafDeAdbEAFdeadbeaf',\\n    ///             expirationTime: 1673891048,\\n    ///             revocable: true,\\n    ///             refUID: '0x0000000000000000000000000000000000000000000000000000000000000000',\\n    ///             data: '0x1234',\\n    ///             value: 1000\\n    ///         },\\n    ///         {\\n    ///             recipient: '0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266',\\n    ///             expirationTime: 0,\\n    ///             revocable: false,\\n    ///             refUID: '0x480df4a039efc31b11bfdf491b383ca138b6bde160988222a2a3509c02cee174',\\n    ///             data: '0x00',\\n    ///             value: 0\\n    ///         }],\\n    ///     },\\n    ///     {\\n    ///         schema: '0x5ac273ce41e3c8bfa383efe7c03e54c5f0bff29c9f11ef6ffa930fc84ca32425',\\n    ///         data: [{\\n    ///             recipient: '0xdEADBeAFdeAdbEafdeadbeafDeAdbEAFdeadbeaf',\\n    ///             expirationTime: 0,\\n    ///             revocable: true,\\n    ///             refUID: '0x75bf2ed8dca25a8190c50c52db136664de25b2449535839008ccfdab469b214f',\\n    ///             data: '0x12345678',\\n    ///             value: 0\\n    ///         },\\n    ///     }])\\n    function multiAttest(MultiAttestationRequest[] calldata multiRequests) external payable returns (bytes32[] memory);\\n\\n    /// @notice Attests to multiple schemas using via provided ECDSA signatures.\\n    /// @param multiDelegatedRequests The arguments of the delegated multi attestation requests. The requests should be\\n    ///     grouped by distinct schema ids to benefit from the best batching optimization.\\n    /// @return The UIDs of the new attestations.\\n    ///\\n    /// Example:\\n    ///     multiAttestByDelegation([{\\n    ///         schema: '0x8e72f5bc0a8d4be6aa98360baa889040c50a0e51f32dbf0baa5199bd93472ebc',\\n    ///         data: [{\\n    ///             recipient: '0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266',\\n    ///             expirationTime: 1673891048,\\n    ///             revocable: true,\\n    ///             refUID: '0x0000000000000000000000000000000000000000000000000000000000000000',\\n    ///             data: '0x1234',\\n    ///             value: 0\\n    ///         },\\n    ///         {\\n    ///             recipient: '0xdEADBeAFdeAdbEafdeadbeafDeAdbEAFdeadbeaf',\\n    ///             expirationTime: 0,\\n    ///             revocable: false,\\n    ///             refUID: '0x0000000000000000000000000000000000000000000000000000000000000000',\\n    ///             data: '0x00',\\n    ///             value: 0\\n    ///         }],\\n    ///         signatures: [{\\n    ///             v: 28,\\n    ///             r: '0x148c...b25b',\\n    ///             s: '0x5a72...be22'\\n    ///         },\\n    ///         {\\n    ///             v: 28,\\n    ///             r: '0x487s...67bb',\\n    ///             s: '0x12ad...2366'\\n    ///         }],\\n    ///         attester: '0x1D86495b2A7B524D747d2839b3C645Bed32e8CF4',\\n    ///         deadline: 1673891048\\n    ///     }])\\n    function multiAttestByDelegation(\\n        MultiDelegatedAttestationRequest[] calldata multiDelegatedRequests\\n    ) external payable returns (bytes32[] memory);\\n\\n    /// @notice Revokes an existing attestation to a specific schema.\\n    /// @param request The arguments of the revocation request.\\n    ///\\n    /// Example:\\n    ///     revoke({\\n    ///         schema: '0x8e72f5bc0a8d4be6aa98360baa889040c50a0e51f32dbf0baa5199bd93472ebc',\\n    ///         data: {\\n    ///             uid: '0x101032e487642ee04ee17049f99a70590c735b8614079fc9275f9dd57c00966d',\\n    ///             value: 0\\n    ///         }\\n    ///     })\\n    function revoke(RevocationRequest calldata request) external payable;\\n\\n    /// @notice Revokes an existing attestation to a specific schema via the provided ECDSA signature.\\n    /// @param delegatedRequest The arguments of the delegated revocation request.\\n    ///\\n    /// Example:\\n    ///     revokeByDelegation({\\n    ///         schema: '0x8e72f5bc0a8d4be6aa98360baa889040c50a0e51f32dbf0baa5199bd93472ebc',\\n    ///         data: {\\n    ///             uid: '0xcbbc12102578c642a0f7b34fe7111e41afa25683b6cd7b5a14caf90fa14d24ba',\\n    ///             value: 0\\n    ///         },\\n    ///         signature: {\\n    ///             v: 27,\\n    ///             r: '0xb593...7142',\\n    ///             s: '0x0f5b...2cce'\\n    ///         },\\n    ///         revoker: '0x244934dd3e31bE2c81f84ECf0b3E6329F5381992',\\n    ///         deadline: 1673891048\\n    ///     })\\n    function revokeByDelegation(DelegatedRevocationRequest calldata delegatedRequest) external payable;\\n\\n    /// @notice Revokes existing attestations to multiple schemas.\\n    /// @param multiRequests The arguments of the multi revocation requests. The requests should be grouped by distinct\\n    ///     schema ids to benefit from the best batching optimization.\\n    ///\\n    /// Example:\\n    ///     multiRevoke([{\\n    ///         schema: '0x8e72f5bc0a8d4be6aa98360baa889040c50a0e51f32dbf0baa5199bd93472ebc',\\n    ///         data: [{\\n    ///             uid: '0x211296a1ca0d7f9f2cfebf0daaa575bea9b20e968d81aef4e743d699c6ac4b25',\\n    ///             value: 1000\\n    ///         },\\n    ///         {\\n    ///             uid: '0xe160ac1bd3606a287b4d53d5d1d6da5895f65b4b4bab6d93aaf5046e48167ade',\\n    ///             value: 0\\n    ///         }],\\n    ///     },\\n    ///     {\\n    ///         schema: '0x5ac273ce41e3c8bfa383efe7c03e54c5f0bff29c9f11ef6ffa930fc84ca32425',\\n    ///         data: [{\\n    ///             uid: '0x053d42abce1fd7c8fcddfae21845ad34dae287b2c326220b03ba241bc5a8f019',\\n    ///             value: 0\\n    ///         },\\n    ///     }])\\n    function multiRevoke(MultiRevocationRequest[] calldata multiRequests) external payable;\\n\\n    /// @notice Revokes existing attestations to multiple schemas via provided ECDSA signatures.\\n    /// @param multiDelegatedRequests The arguments of the delegated multi revocation attestation requests. The requests\\n    ///     should be grouped by distinct schema ids to benefit from the best batching optimization.\\n    ///\\n    /// Example:\\n    ///     multiRevokeByDelegation([{\\n    ///         schema: '0x8e72f5bc0a8d4be6aa98360baa889040c50a0e51f32dbf0baa5199bd93472ebc',\\n    ///         data: [{\\n    ///             uid: '0x211296a1ca0d7f9f2cfebf0daaa575bea9b20e968d81aef4e743d699c6ac4b25',\\n    ///             value: 1000\\n    ///         },\\n    ///         {\\n    ///             uid: '0xe160ac1bd3606a287b4d53d5d1d6da5895f65b4b4bab6d93aaf5046e48167ade',\\n    ///             value: 0\\n    ///         }],\\n    ///         signatures: [{\\n    ///             v: 28,\\n    ///             r: '0x148c...b25b',\\n    ///             s: '0x5a72...be22'\\n    ///         },\\n    ///         {\\n    ///             v: 28,\\n    ///             r: '0x487s...67bb',\\n    ///             s: '0x12ad...2366'\\n    ///         }],\\n    ///         revoker: '0x244934dd3e31bE2c81f84ECf0b3E6329F5381992',\\n    ///         deadline: 1673891048\\n    ///     }])\\n    function multiRevokeByDelegation(\\n        MultiDelegatedRevocationRequest[] calldata multiDelegatedRequests\\n    ) external payable;\\n\\n    /// @notice Timestamps the specified bytes32 data.\\n    /// @param data The data to timestamp.\\n    /// @return The timestamp the data was timestamped with.\\n    function timestamp(bytes32 data) external returns (uint64);\\n\\n    /// @notice Timestamps the specified multiple bytes32 data.\\n    /// @param data The data to timestamp.\\n    /// @return The timestamp the data was timestamped with.\\n    function multiTimestamp(bytes32[] calldata data) external returns (uint64);\\n\\n    /// @notice Revokes the specified bytes32 data.\\n    /// @param data The data to timestamp.\\n    /// @return The timestamp the data was revoked with.\\n    function revokeOffchain(bytes32 data) external returns (uint64);\\n\\n    /// @notice Revokes the specified multiple bytes32 data.\\n    /// @param data The data to timestamp.\\n    /// @return The timestamp the data was revoked with.\\n    function multiRevokeOffchain(bytes32[] calldata data) external returns (uint64);\\n\\n    /// @notice Returns an existing attestation by UID.\\n    /// @param uid The UID of the attestation to retrieve.\\n    /// @return The attestation data members.\\n    function getAttestation(bytes32 uid) external view returns (Attestation memory);\\n\\n    /// @notice Checks whether an attestation exists.\\n    /// @param uid The UID of the attestation to retrieve.\\n    /// @return Whether an attestation exists.\\n    function isAttestationValid(bytes32 uid) external view returns (bool);\\n\\n    /// @notice Returns the timestamp that the specified data was timestamped with.\\n    /// @param data The data to query.\\n    /// @return The timestamp the data was timestamped with.\\n    function getTimestamp(bytes32 data) external view returns (uint64);\\n\\n    /// @notice Returns the timestamp that the specified data was timestamped with.\\n    /// @param data The data to query.\\n    /// @return The timestamp the data was timestamped with.\\n    function getRevokeOffchain(address revoker, bytes32 data) external view returns (uint64);\\n}\\n\",\"keccak256\":\"0xdad0674defce04905dc7935f2756d6c477a6e876c0b1b7094b112a862f164c12\",\"license\":\"MIT\"},\"@ethereum-attestation-service/eas-contracts/contracts/ISchemaRegistry.sol\":{\"content\":\"// SPDX-License-Identifier: MIT\\n\\npragma solidity ^0.8.0;\\n\\nimport { ISemver } from \\\"./ISemver.sol\\\";\\n\\nimport { ISchemaResolver } from \\\"./resolver/ISchemaResolver.sol\\\";\\n\\n/// @notice A struct representing a record for a submitted schema.\\nstruct SchemaRecord {\\n    bytes32 uid; // The unique identifier of the schema.\\n    ISchemaResolver resolver; // Optional schema resolver.\\n    bool revocable; // Whether the schema allows revocations explicitly.\\n    string schema; // Custom specification of the schema (e.g., an ABI).\\n}\\n\\n/// @title ISchemaRegistry\\n/// @notice The interface of global attestation schemas for the Ethereum Attestation Service protocol.\\ninterface ISchemaRegistry is ISemver {\\n    /// @notice Emitted when a new schema has been registered\\n    /// @param uid The schema UID.\\n    /// @param registerer The address of the account used to register the schema.\\n    /// @param schema The schema data.\\n    event Registered(bytes32 indexed uid, address indexed registerer, SchemaRecord schema);\\n\\n    /// @notice Submits and reserves a new schema\\n    /// @param schema The schema data schema.\\n    /// @param resolver An optional schema resolver.\\n    /// @param revocable Whether the schema allows revocations explicitly.\\n    /// @return The UID of the new schema.\\n    function register(string calldata schema, ISchemaResolver resolver, bool revocable) external returns (bytes32);\\n\\n    /// @notice Returns an existing schema by UID\\n    /// @param uid The UID of the schema to retrieve.\\n    /// @return The schema data members.\\n    function getSchema(bytes32 uid) external view returns (SchemaRecord memory);\\n}\\n\",\"keccak256\":\"0xea97dcd36a0c422169cbaac06698249e199049b627c16bff93fb8ab829058754\",\"license\":\"MIT\"},\"@ethereum-attestation-service/eas-contracts/contracts/ISemver.sol\":{\"content\":\"// SPDX-License-Identifier: MIT\\n\\npragma solidity ^0.8.0;\\n\\n/// @title ISemver\\n/// @notice A semver interface.\\ninterface ISemver {\\n    /// @notice Returns the full semver contract version.\\n    /// @return Semver contract version as a string.\\n    function version() external view returns (string memory);\\n}\\n\",\"keccak256\":\"0x04a67939b4e1a8d0a51101b8f69f8882930bbdc66319f38023828625b5d1ff18\",\"license\":\"MIT\"},\"@ethereum-attestation-service/eas-contracts/contracts/resolver/ISchemaResolver.sol\":{\"content\":\"// SPDX-License-Identifier: MIT\\n\\npragma solidity ^0.8.0;\\n\\nimport { ISemver } from \\\"../ISemver.sol\\\";\\nimport { Attestation } from \\\"../Common.sol\\\";\\n\\n/// @title ISchemaResolver\\n/// @notice The interface of an optional schema resolver.\\ninterface ISchemaResolver is ISemver {\\n    /// @notice Checks if the resolver can be sent ETH.\\n    /// @return Whether the resolver supports ETH transfers.\\n    function isPayable() external pure returns (bool);\\n\\n    /// @notice Processes an attestation and verifies whether it's valid.\\n    /// @param attestation The new attestation.\\n    /// @return Whether the attestation is valid.\\n    function attest(Attestation calldata attestation) external payable returns (bool);\\n\\n    /// @notice Processes multiple attestations and verifies whether they are valid.\\n    /// @param attestations The new attestations.\\n    /// @param values Explicit ETH amounts which were sent with each attestation.\\n    /// @return Whether all the attestations are valid.\\n    function multiAttest(\\n        Attestation[] calldata attestations,\\n        uint256[] calldata values\\n    ) external payable returns (bool);\\n\\n    /// @notice Processes an attestation revocation and verifies if it can be revoked.\\n    /// @param attestation The existing attestation to be revoked.\\n    /// @return Whether the attestation can be revoked.\\n    function revoke(Attestation calldata attestation) external payable returns (bool);\\n\\n    /// @notice Processes revocation of multiple attestation and verifies they can be revoked.\\n    /// @param attestations The existing attestations to be revoked.\\n    /// @param values Explicit ETH amounts which were sent with each revocation.\\n    /// @return Whether the attestations can be revoked.\\n    function multiRevoke(\\n        Attestation[] calldata attestations,\\n        uint256[] calldata values\\n    ) external payable returns (bool);\\n}\\n\",\"keccak256\":\"0x479f39f03425df5385d790cd2c7447b8250aeb9733d13029d3da8c5982b6604b\",\"license\":\"MIT\"},\"@openzeppelin/contracts/access/Ownable.sol\":{\"content\":\"// SPDX-License-Identifier: MIT\\n// OpenZeppelin Contracts (last updated v4.9.0) (access/Ownable.sol)\\n\\npragma solidity ^0.8.0;\\n\\nimport \\\"../utils/Context.sol\\\";\\n\\n/**\\n * @dev Contract module which provides a basic access control mechanism, where\\n * there is an account (an owner) that can be granted exclusive access to\\n * specific functions.\\n *\\n * By default, the owner account will be the one that deploys the contract. This\\n * can later be changed with {transferOwnership}.\\n *\\n * This module is used through inheritance. It will make available the modifier\\n * `onlyOwner`, which can be applied to your functions to restrict their use to\\n * the owner.\\n */\\nabstract contract Ownable is Context {\\n    address private _owner;\\n\\n    event OwnershipTransferred(address indexed previousOwner, address indexed newOwner);\\n\\n    /**\\n     * @dev Initializes the contract setting the deployer as the initial owner.\\n     */\\n    constructor() {\\n        _transferOwnership(_msgSender());\\n    }\\n\\n    /**\\n     * @dev Throws if called by any account other than the owner.\\n     */\\n    modifier onlyOwner() {\\n        _checkOwner();\\n        _;\\n    }\\n\\n    /**\\n     * @dev Returns the address of the current owner.\\n     */\\n    function owner() public view virtual returns (address) {\\n        return _owner;\\n    }\\n\\n    /**\\n     * @dev Throws if the sender is not the owner.\\n     */\\n    function _checkOwner() internal view virtual {\\n        require(owner() == _msgSender(), \\\"Ownable: caller is not the owner\\\");\\n    }\\n\\n    /**\\n     * @dev Leaves the contract without owner. It will not be possible to call\\n     * `onlyOwner` functions. Can only be called by the current owner.\\n     *\\n     * NOTE: Renouncing ownership will leave the contract without an owner,\\n     * thereby disabling any functionality that is only available to the owner.\\n     */\\n    function renounceOwnership() public virtual onlyOwner {\\n        _transferOwnership(address(0));\\n    }\\n\\n    /**\\n     * @dev Transfers ownership of the contract to a new account (`newOwner`).\\n     * Can only be called by the current owner.\\n     */\\n    function transferOwnership(address newOwner) public virtual onlyOwner {\\n        require(newOwner != address(0), \\\"Ownable: new owner is the zero address\\\");\\n        _transferOwnership(newOwner);\\n    }\\n\\n    /**\\n     * @dev Transfers ownership of the contract to a new account (`newOwner`).\\n     * Internal function without access restriction.\\n     */\\n    function _transferOwnership(address newOwner) internal virtual {\\n        address oldOwner = _owner;\\n        _owner = newOwner;\\n        emit OwnershipTransferred(oldOwner, newOwner);\\n    }\\n}\\n\",\"keccak256\":\"0xba43b97fba0d32eb4254f6a5a297b39a19a247082a02d6e69349e071e2946218\",\"license\":\"MIT\"},\"@openzeppelin/contracts/token/ERC20/ERC20.sol\":{\"content\":\"// SPDX-License-Identifier: MIT\\n// OpenZeppelin Contracts (last updated v4.9.0) (token/ERC20/ERC20.sol)\\n\\npragma solidity ^0.8.0;\\n\\nimport \\\"./IERC20.sol\\\";\\nimport \\\"./extensions/IERC20Metadata.sol\\\";\\nimport \\\"../../utils/Context.sol\\\";\\n\\n/**\\n * @dev Implementation of the {IERC20} interface.\\n *\\n * This implementation is agnostic to the way tokens are created. This means\\n * that a supply mechanism has to be added in a derived contract using {_mint}.\\n * For a generic mechanism see {ERC20PresetMinterPauser}.\\n *\\n * TIP: For a detailed writeup see our guide\\n * https://forum.openzeppelin.com/t/how-to-implement-erc20-supply-mechanisms/226[How\\n * to implement supply mechanisms].\\n *\\n * The default value of {decimals} is 18. To change this, you should override\\n * this function so it returns a different value.\\n *\\n * We have followed general OpenZeppelin Contracts guidelines: functions revert\\n * instead returning `false` on failure. This behavior is nonetheless\\n * conventional and does not conflict with the expectations of ERC20\\n * applications.\\n *\\n * Additionally, an {Approval} event is emitted on calls to {transferFrom}.\\n * This allows applications to reconstruct the allowance for all accounts just\\n * by listening to said events. Other implementations of the EIP may not emit\\n * these events, as it isn't required by the specification.\\n *\\n * Finally, the non-standard {decreaseAllowance} and {increaseAllowance}\\n * functions have been added to mitigate the well-known issues around setting\\n * allowances. See {IERC20-approve}.\\n */\\ncontract ERC20 is Context, IERC20, IERC20Metadata {\\n    mapping(address => uint256) private _balances;\\n\\n    mapping(address => mapping(address => uint256)) private _allowances;\\n\\n    uint256 private _totalSupply;\\n\\n    string private _name;\\n    string private _symbol;\\n\\n    /**\\n     * @dev Sets the values for {name} and {symbol}.\\n     *\\n     * All two of these values are immutable: they can only be set once during\\n     * construction.\\n     */\\n    constructor(string memory name_, string memory symbol_) {\\n        _name = name_;\\n        _symbol = symbol_;\\n    }\\n\\n    /**\\n     * @dev Returns the name of the token.\\n     */\\n    function name() public view virtual override returns (string memory) {\\n        return _name;\\n    }\\n\\n    /**\\n     * @dev Returns the symbol of the token, usually a shorter version of the\\n     * name.\\n     */\\n    function symbol() public view virtual override returns (string memory) {\\n        return _symbol;\\n    }\\n\\n    /**\\n     * @dev Returns the number of decimals used to get its user representation.\\n     * For example, if `decimals` equals `2`, a balance of `505` tokens should\\n     * be displayed to a user as `5.05` (`505 / 10 ** 2`).\\n     *\\n     * Tokens usually opt for a value of 18, imitating the relationship between\\n     * Ether and Wei. This is the default value returned by this function, unless\\n     * it's overridden.\\n     *\\n     * NOTE: This information is only used for _display_ purposes: it in\\n     * no way affects any of the arithmetic of the contract, including\\n     * {IERC20-balanceOf} and {IERC20-transfer}.\\n     */\\n    function decimals() public view virtual override returns (uint8) {\\n        return 18;\\n    }\\n\\n    /**\\n     * @dev See {IERC20-totalSupply}.\\n     */\\n    function totalSupply() public view virtual override returns (uint256) {\\n        return _totalSupply;\\n    }\\n\\n    /**\\n     * @dev See {IERC20-balanceOf}.\\n     */\\n    function balanceOf(address account) public view virtual override returns (uint256) {\\n        return _balances[account];\\n    }\\n\\n    /**\\n     * @dev See {IERC20-transfer}.\\n     *\\n     * Requirements:\\n     *\\n     * - `to` cannot be the zero address.\\n     * - the caller must have a balance of at least `amount`.\\n     */\\n    function transfer(address to, uint256 amount) public virtual override returns (bool) {\\n        address owner = _msgSender();\\n        _transfer(owner, to, amount);\\n        return true;\\n    }\\n\\n    /**\\n     * @dev See {IERC20-allowance}.\\n     */\\n    function allowance(address owner, address spender) public view virtual override returns (uint256) {\\n        return _allowances[owner][spender];\\n    }\\n\\n    /**\\n     * @dev See {IERC20-approve}.\\n     *\\n     * NOTE: If `amount` is the maximum `uint256`, the allowance is not updated on\\n     * `transferFrom`. This is semantically equivalent to an infinite approval.\\n     *\\n     * Requirements:\\n     *\\n     * - `spender` cannot be the zero address.\\n     */\\n    function approve(address spender, uint256 amount) public virtual override returns (bool) {\\n        address owner = _msgSender();\\n        _approve(owner, spender, amount);\\n        return true;\\n    }\\n\\n    /**\\n     * @dev See {IERC20-transferFrom}.\\n     *\\n     * Emits an {Approval} event indicating the updated allowance. This is not\\n     * required by the EIP. See the note at the beginning of {ERC20}.\\n     *\\n     * NOTE: Does not update the allowance if the current allowance\\n     * is the maximum `uint256`.\\n     *\\n     * Requirements:\\n     *\\n     * - `from` and `to` cannot be the zero address.\\n     * - `from` must have a balance of at least `amount`.\\n     * - the caller must have allowance for ``from``'s tokens of at least\\n     * `amount`.\\n     */\\n    function transferFrom(address from, address to, uint256 amount) public virtual override returns (bool) {\\n        address spender = _msgSender();\\n        _spendAllowance(from, spender, amount);\\n        _transfer(from, to, amount);\\n        return true;\\n    }\\n\\n    /**\\n     * @dev Atomically increases the allowance granted to `spender` by the caller.\\n     *\\n     * This is an alternative to {approve} that can be used as a mitigation for\\n     * problems described in {IERC20-approve}.\\n     *\\n     * Emits an {Approval} event indicating the updated allowance.\\n     *\\n     * Requirements:\\n     *\\n     * - `spender` cannot be the zero address.\\n     */\\n    function increaseAllowance(address spender, uint256 addedValue) public virtual returns (bool) {\\n        address owner = _msgSender();\\n        _approve(owner, spender, allowance(owner, spender) + addedValue);\\n        return true;\\n    }\\n\\n    /**\\n     * @dev Atomically decreases the allowance granted to `spender` by the caller.\\n     *\\n     * This is an alternative to {approve} that can be used as a mitigation for\\n     * problems described in {IERC20-approve}.\\n     *\\n     * Emits an {Approval} event indicating the updated allowance.\\n     *\\n     * Requirements:\\n     *\\n     * - `spender` cannot be the zero address.\\n     * - `spender` must have allowance for the caller of at least\\n     * `subtractedValue`.\\n     */\\n    function decreaseAllowance(address spender, uint256 subtractedValue) public virtual returns (bool) {\\n        address owner = _msgSender();\\n        uint256 currentAllowance = allowance(owner, spender);\\n        require(currentAllowance >= subtractedValue, \\\"ERC20: decreased allowance below zero\\\");\\n        unchecked {\\n            _approve(owner, spender, currentAllowance - subtractedValue);\\n        }\\n\\n        return true;\\n    }\\n\\n    /**\\n     * @dev Moves `amount` of tokens from `from` to `to`.\\n     *\\n     * This internal function is equivalent to {transfer}, and can be used to\\n     * e.g. implement automatic token fees, slashing mechanisms, etc.\\n     *\\n     * Emits a {Transfer} event.\\n     *\\n     * Requirements:\\n     *\\n     * - `from` cannot be the zero address.\\n     * - `to` cannot be the zero address.\\n     * - `from` must have a balance of at least `amount`.\\n     */\\n    function _transfer(address from, address to, uint256 amount) internal virtual {\\n        require(from != address(0), \\\"ERC20: transfer from the zero address\\\");\\n        require(to != address(0), \\\"ERC20: transfer to the zero address\\\");\\n\\n        _beforeTokenTransfer(from, to, amount);\\n\\n        uint256 fromBalance = _balances[from];\\n        require(fromBalance >= amount, \\\"ERC20: transfer amount exceeds balance\\\");\\n        unchecked {\\n            _balances[from] = fromBalance - amount;\\n            // Overflow not possible: the sum of all balances is capped by totalSupply, and the sum is preserved by\\n            // decrementing then incrementing.\\n            _balances[to] += amount;\\n        }\\n\\n        emit Transfer(from, to, amount);\\n\\n        _afterTokenTransfer(from, to, amount);\\n    }\\n\\n    /** @dev Creates `amount` tokens and assigns them to `account`, increasing\\n     * the total supply.\\n     *\\n     * Emits a {Transfer} event with `from` set to the zero address.\\n     *\\n     * Requirements:\\n     *\\n     * - `account` cannot be the zero address.\\n     */\\n    function _mint(address account, uint256 amount) internal virtual {\\n        require(account != address(0), \\\"ERC20: mint to the zero address\\\");\\n\\n        _beforeTokenTransfer(address(0), account, amount);\\n\\n        _totalSupply += amount;\\n        unchecked {\\n            // Overflow not possible: balance + amount is at most totalSupply + amount, which is checked above.\\n            _balances[account] += amount;\\n        }\\n        emit Transfer(address(0), account, amount);\\n\\n        _afterTokenTransfer(address(0), account, amount);\\n    }\\n\\n    /**\\n     * @dev Destroys `amount` tokens from `account`, reducing the\\n     * total supply.\\n     *\\n     * Emits a {Transfer} event with `to` set to the zero address.\\n     *\\n     * Requirements:\\n     *\\n     * - `account` cannot be the zero address.\\n     * - `account` must have at least `amount` tokens.\\n     */\\n    function _burn(address account, uint256 amount) internal virtual {\\n        require(account != address(0), \\\"ERC20: burn from the zero address\\\");\\n\\n        _beforeTokenTransfer(account, address(0), amount);\\n\\n        uint256 accountBalance = _balances[account];\\n        require(accountBalance >= amount, \\\"ERC20: burn amount exceeds balance\\\");\\n        unchecked {\\n            _balances[account] = accountBalance - amount;\\n            // Overflow not possible: amount <= accountBalance <= totalSupply.\\n            _totalSupply -= amount;\\n        }\\n\\n        emit Transfer(account, address(0), amount);\\n\\n        _afterTokenTransfer(account, address(0), amount);\\n    }\\n\\n    /**\\n     * @dev Sets `amount` as the allowance of `spender` over the `owner` s tokens.\\n     *\\n     * This internal function is equivalent to `approve`, and can be used to\\n     * e.g. set automatic allowances for certain subsystems, etc.\\n     *\\n     * Emits an {Approval} event.\\n     *\\n     * Requirements:\\n     *\\n     * - `owner` cannot be the zero address.\\n     * - `spender` cannot be the zero address.\\n     */\\n    function _approve(address owner, address spender, uint256 amount) internal virtual {\\n        require(owner != address(0), \\\"ERC20: approve from the zero address\\\");\\n        require(spender != address(0), \\\"ERC20: approve to the zero address\\\");\\n\\n        _allowances[owner][spender] = amount;\\n        emit Approval(owner, spender, amount);\\n    }\\n\\n    /**\\n     * @dev Updates `owner` s allowance for `spender` based on spent `amount`.\\n     *\\n     * Does not update the allowance amount in case of infinite allowance.\\n     * Revert if not enough allowance is available.\\n     *\\n     * Might emit an {Approval} event.\\n     */\\n    function _spendAllowance(address owner, address spender, uint256 amount) internal virtual {\\n        uint256 currentAllowance = allowance(owner, spender);\\n        if (currentAllowance != type(uint256).max) {\\n            require(currentAllowance >= amount, \\\"ERC20: insufficient allowance\\\");\\n            unchecked {\\n                _approve(owner, spender, currentAllowance - amount);\\n            }\\n        }\\n    }\\n\\n    /**\\n     * @dev Hook that is called before any transfer of tokens. This includes\\n     * minting and burning.\\n     *\\n     * Calling conditions:\\n     *\\n     * - when `from` and `to` are both non-zero, `amount` of ``from``'s tokens\\n     * will be transferred to `to`.\\n     * - when `from` is zero, `amount` tokens will be minted for `to`.\\n     * - when `to` is zero, `amount` of ``from``'s tokens will be burned.\\n     * - `from` and `to` are never both zero.\\n     *\\n     * To learn more about hooks, head to xref:ROOT:extending-contracts.adoc#using-hooks[Using Hooks].\\n     */\\n    function _beforeTokenTransfer(address from, address to, uint256 amount) internal virtual {}\\n\\n    /**\\n     * @dev Hook that is called after any transfer of tokens. This includes\\n     * minting and burning.\\n     *\\n     * Calling conditions:\\n     *\\n     * - when `from` and `to` are both non-zero, `amount` of ``from``'s tokens\\n     * has been transferred to `to`.\\n     * - when `from` is zero, `amount` tokens have been minted for `to`.\\n     * - when `to` is zero, `amount` of ``from``'s tokens have been burned.\\n     * - `from` and `to` are never both zero.\\n     *\\n     * To learn more about hooks, head to xref:ROOT:extending-contracts.adoc#using-hooks[Using Hooks].\\n     */\\n    function _afterTokenTransfer(address from, address to, uint256 amount) internal virtual {}\\n}\\n\",\"keccak256\":\"0xa56ca923f70c1748830700250b19c61b70db9a683516dc5e216694a50445d99c\",\"license\":\"MIT\"},\"@openzeppelin/contracts/token/ERC20/IERC20.sol\":{\"content\":\"// SPDX-License-Identifier: MIT\\n// OpenZeppelin Contracts (last updated v4.9.0) (token/ERC20/IERC20.sol)\\n\\npragma solidity ^0.8.0;\\n\\n/**\\n * @dev Interface of the ERC20 standard as defined in the EIP.\\n */\\ninterface IERC20 {\\n    /**\\n     * @dev Emitted when `value` tokens are moved from one account (`from`) to\\n     * another (`to`).\\n     *\\n     * Note that `value` may be zero.\\n     */\\n    event Transfer(address indexed from, address indexed to, uint256 value);\\n\\n    /**\\n     * @dev Emitted when the allowance of a `spender` for an `owner` is set by\\n     * a call to {approve}. `value` is the new allowance.\\n     */\\n    event Approval(address indexed owner, address indexed spender, uint256 value);\\n\\n    /**\\n     * @dev Returns the amount of tokens in existence.\\n     */\\n    function totalSupply() external view returns (uint256);\\n\\n    /**\\n     * @dev Returns the amount of tokens owned by `account`.\\n     */\\n    function balanceOf(address account) external view returns (uint256);\\n\\n    /**\\n     * @dev Moves `amount` tokens from the caller's account to `to`.\\n     *\\n     * Returns a boolean value indicating whether the operation succeeded.\\n     *\\n     * Emits a {Transfer} event.\\n     */\\n    function transfer(address to, uint256 amount) external returns (bool);\\n\\n    /**\\n     * @dev Returns the remaining number of tokens that `spender` will be\\n     * allowed to spend on behalf of `owner` through {transferFrom}. This is\\n     * zero by default.\\n     *\\n     * This value changes when {approve} or {transferFrom} are called.\\n     */\\n    function allowance(address owner, address spender) external view returns (uint256);\\n\\n    /**\\n     * @dev Sets `amount` as the allowance of `spender` over the caller's tokens.\\n     *\\n     * Returns a boolean value indicating whether the operation succeeded.\\n     *\\n     * IMPORTANT: Beware that changing an allowance with this method brings the risk\\n     * that someone may use both the old and the new allowance by unfortunate\\n     * transaction ordering. One possible solution to mitigate this race\\n     * condition is to first reduce the spender's allowance to 0 and set the\\n     * desired value afterwards:\\n     * https://github.com/ethereum/EIPs/issues/20#issuecomment-263524729\\n     *\\n     * Emits an {Approval} event.\\n     */\\n    function approve(address spender, uint256 amount) external returns (bool);\\n\\n    /**\\n     * @dev Moves `amount` tokens from `from` to `to` using the\\n     * allowance mechanism. `amount` is then deducted from the caller's\\n     * allowance.\\n     *\\n     * Returns a boolean value indicating whether the operation succeeded.\\n     *\\n     * Emits a {Transfer} event.\\n     */\\n    function transferFrom(address from, address to, uint256 amount) external returns (bool);\\n}\\n\",\"keccak256\":\"0x287b55befed2961a7eabd7d7b1b2839cbca8a5b80ef8dcbb25ed3d4c2002c305\",\"license\":\"MIT\"},\"@openzeppelin/contracts/token/ERC20/extensions/IERC20Metadata.sol\":{\"content\":\"// SPDX-License-Identifier: MIT\\n// OpenZeppelin Contracts v4.4.1 (token/ERC20/extensions/IERC20Metadata.sol)\\n\\npragma solidity ^0.8.0;\\n\\nimport \\\"../IERC20.sol\\\";\\n\\n/**\\n * @dev Interface for the optional metadata functions from the ERC20 standard.\\n *\\n * _Available since v4.1._\\n */\\ninterface IERC20Metadata is IERC20 {\\n    /**\\n     * @dev Returns the name of the token.\\n     */\\n    function name() external view returns (string memory);\\n\\n    /**\\n     * @dev Returns the symbol of the token.\\n     */\\n    function symbol() external view returns (string memory);\\n\\n    /**\\n     * @dev Returns the decimals places of the token.\\n     */\\n    function decimals() external view returns (uint8);\\n}\\n\",\"keccak256\":\"0x8de418a5503946cabe331f35fe242d3201a73f67f77aaeb7110acb1f30423aca\",\"license\":\"MIT\"},\"@openzeppelin/contracts/utils/Context.sol\":{\"content\":\"// SPDX-License-Identifier: MIT\\n// OpenZeppelin Contracts v4.4.1 (utils/Context.sol)\\n\\npragma solidity ^0.8.0;\\n\\n/**\\n * @dev Provides information about the current execution context, including the\\n * sender of the transaction and its data. While these are generally available\\n * via msg.sender and msg.data, they should not be accessed in such a direct\\n * manner, since when dealing with meta-transactions the account sending and\\n * paying for execution may not be the actual sender (as far as an application\\n * is concerned).\\n *\\n * This contract is only required for intermediate, library-like contracts.\\n */\\nabstract contract Context {\\n    function _msgSender() internal view virtual returns (address) {\\n        return msg.sender;\\n    }\\n\\n    function _msgData() internal view virtual returns (bytes calldata) {\\n        return msg.data;\\n    }\\n}\\n\",\"keccak256\":\"0xe2e337e6dde9ef6b680e07338c493ebea1b5fd09b43424112868e9cc1706bca7\",\"license\":\"MIT\"},\"contracts/TrustScriptProductReviewAttester.sol\":{\"content\":\"//SPDX-License-Identifier: MIT\\r\\npragma solidity >=0.8.0 <0.9.0;\\r\\n\\r\\nimport { IEAS, AttestationRequest, AttestationRequestData } from \\\"@ethereum-attestation-service/eas-contracts/contracts/IEAS.sol\\\";\\r\\nimport { NO_EXPIRATION_TIME, EMPTY_UID } from \\\"@ethereum-attestation-service/eas-contracts/contracts/Common.sol\\\";\\r\\n\\r\\nstruct ProductReview {\\r\\n\\tuint256 productId;\\r\\n\\taddress buyerAddress;\\r\\n\\tstring review;\\r\\n}\\r\\n\\r\\n/// @title TrustScriptProductReviewAttester\\r\\n/// @notice Ethereum Attestation Service - Example\\r\\ncontract TrustScriptProductReviewAttester {\\r\\n\\t// The address of the global EAS contract.\\r\\n\\tIEAS public immutable eas;\\r\\n\\tbytes32 public immutable productReviewSchemaUID;\\r\\n\\r\\n\\terror InvalidEAS();\\r\\n\\r\\n\\t/// @notice Creates a new TrustScriptProductReviewAttester instance.\\r\\n\\t/// @param easAddress The address of the global EAS contract.\\r\\n\\t/// @param _productReviewSchemaUID The UID of the ProductReview schema.\\r\\n\\tconstructor(IEAS easAddress, bytes32 _productReviewSchemaUID) {\\r\\n\\t\\tif (address(easAddress) == address(0)) {\\r\\n\\t\\t\\trevert InvalidEAS();\\r\\n\\t\\t}\\r\\n\\r\\n\\t\\teas = easAddress;\\r\\n\\t\\tproductReviewSchemaUID = _productReviewSchemaUID;\\r\\n\\t}\\r\\n\\r\\n\\t/// @notice Attests to a schema that receives a ProductReview parameter.\\r\\n\\t/// @param productReview The ProductReview value to pass to to the resolver.\\r\\n\\t/// @return attestationUID The UID of the new attestation.\\r\\n\\tfunction attestProductReview(\\r\\n\\t\\tProductReview memory productReview,\\r\\n\\t\\taddress sellerAddress\\r\\n\\t) external returns (bytes32 attestationUID) {\\r\\n\\t\\treturn\\r\\n\\t\\t\\teas.attest(\\r\\n\\t\\t\\t\\tAttestationRequest({\\r\\n\\t\\t\\t\\t\\tschema: productReviewSchemaUID,\\r\\n\\t\\t\\t\\t\\tdata: AttestationRequestData({\\r\\n\\t\\t\\t\\t\\t\\trecipient: sellerAddress,\\r\\n\\t\\t\\t\\t\\t\\texpirationTime: NO_EXPIRATION_TIME, // No expiration time\\r\\n\\t\\t\\t\\t\\t\\trevocable: true,\\r\\n\\t\\t\\t\\t\\t\\trefUID: EMPTY_UID, // No references UI\\r\\n\\t\\t\\t\\t\\t\\tdata: abi.encode(\\r\\n\\t\\t\\t\\t\\t\\t\\tproductReview.productId,\\r\\n\\t\\t\\t\\t\\t\\t\\tproductReview.buyerAddress,\\r\\n\\t\\t\\t\\t\\t\\t\\tproductReview.review\\r\\n\\t\\t\\t\\t\\t\\t),\\r\\n\\t\\t\\t\\t\\t\\tvalue: 0 // No value/ETH\\r\\n\\t\\t\\t\\t\\t})\\r\\n\\t\\t\\t\\t})\\r\\n\\t\\t\\t);\\r\\n\\r\\n\\t\\t// return\\r\\n\\t\\t// \\t0x3100000000000000000000000000000000000000000000000000000000000000;\\r\\n\\t}\\r\\n}\\r\\n\",\"keccak256\":\"0x89d2b81376f478edade5a39b2f27b2579a40daec74b2692a8f2c58bcb53dda20\",\"license\":\"MIT\"},\"contracts/TrustScriptShop.sol\":{\"content\":\"//SPDX-License-Identifier: MIT\\npragma solidity >=0.8.0 <0.9.0;\\n\\nimport \\\"@openzeppelin/contracts/token/ERC20/ERC20.sol\\\";\\nimport \\\"@openzeppelin/contracts/access/Ownable.sol\\\";\\nimport \\\"./TrustScriptToken.sol\\\";\\nimport \\\"./TrustScriptProductReviewAttester.sol\\\";\\n\\ncontract TrustScriptShop is Ownable {\\n\\tstruct Product {\\n\\t\\tuint256 id;\\n\\t\\tstring name;\\n\\t\\tuint256 priceInETH;\\n\\t\\tuint256 priceInToken;\\n\\t}\\n\\n\\tTrustScriptToken public trustScriptToken;\\n\\tuint256 public constant TOKENS_PER_ETH = 1000;\\n\\tuint256 public constant REVIEW_PRODUCT_REWARD = 5;\\n\\tmapping(uint256 => bool) public productsMapping;\\n\\tProduct[] public productsArray;\\n\\tmapping(uint256 => Product) public products;\\n\\tuint256 public numberOfProducts;\\n\\tProductReview[] public productReviewsArray;\\n\\tuint256 public numberOfProductReviews;\\n\\tmapping(address => bool) public allowedAttesters;\\n\\tTrustScriptProductReviewAttester public trustScriptProductReviewAttester;\\n\\n\\tevent AddProduct(Product product);\\n\\tevent BuyProductWithETH(Product product);\\n\\tevent BuyProductWithToken(Product product);\\n\\tevent ReviewProduct(ProductReview productReview, bytes32 uid);\\n\\tevent MintTokenToBuyer(address beneficiary, uint256 amountOfToken);\\n\\tevent WithdrawETH(uint256 amountOfETH);\\n\\tevent WithdrawToken(uint256 amountOfToken);\\n\\n\\terror TrustScriptShop__ExistedProductId(uint256 productId);\\n\\terror TrustScriptShop__NotExistedProductId(uint256 productId);\\n\\terror TrustScriptShop__UnequalPriceInETHAndPriceInToken(\\n\\t\\tuint256 priceInETH,\\n\\t\\tuint256 priceInToken\\n\\t);\\n\\terror TrustScriptShop__UnequalAmountOfETHAndPriceInETH(\\n\\t\\tuint256 amountOfETH,\\n\\t\\tuint256 priceInETH\\n\\t);\\n\\terror TrustScriptShop__UnequalAmountOfTokenAndPriceInToken(\\n\\t\\tuint256 amountOfToken,\\n\\t\\tuint256 priceInToken\\n\\t);\\n\\terror TrustScriptShop__FailedToSendETH();\\n\\terror TrustScriptShop__UnauthorizedAttester(address attesterAddress);\\n\\n\\tmodifier onlyAllowedAttesters() {\\n\\t\\tif (!allowedAttesters[msg.sender])\\n\\t\\t\\trevert TrustScriptShop__UnauthorizedAttester(msg.sender);\\n\\t\\t_;\\n\\t}\\n\\n\\tconstructor(\\n\\t\\taddress ownerAddress,\\n\\t\\taddress trustScriptTokenAddress,\\n\\t\\taddress trustScriptProductReviewAttesterAddress\\n\\t) {\\n\\t\\tsuper.transferOwnership(ownerAddress);\\n\\t\\ttrustScriptToken = TrustScriptToken(trustScriptTokenAddress);\\n\\t\\ttrustScriptProductReviewAttester = TrustScriptProductReviewAttester(\\n\\t\\t\\ttrustScriptProductReviewAttesterAddress\\n\\t\\t);\\n\\t}\\n\\n\\tfunction addProduct(Product memory product) public onlyOwner {\\n\\t\\tif (productsMapping[product.id]) {\\n\\t\\t\\trevert TrustScriptShop__ExistedProductId(product.id);\\n\\t\\t}\\n\\n\\t\\tif (\\n\\t\\t\\tproduct.priceInETH *\\n\\t\\t\\t\\tTOKENS_PER_ETH *\\n\\t\\t\\t\\t10 ** trustScriptToken.decimals() !=\\n\\t\\t\\tproduct.priceInToken * 1 ether\\n\\t\\t) {\\n\\t\\t\\trevert TrustScriptShop__UnequalPriceInETHAndPriceInToken(\\n\\t\\t\\t\\tproduct.priceInETH,\\n\\t\\t\\t\\tproduct.priceInToken\\n\\t\\t\\t);\\n\\t\\t}\\n\\n\\t\\tproductsMapping[product.id] = true;\\n\\t\\tproductsArray.push(product);\\n\\t\\tproducts[product.id] = product;\\n\\t\\tnumberOfProducts++;\\n\\n\\t\\temit AddProduct(product);\\n\\t}\\n\\n\\tfunction buyProductWithETH(uint256 id) public payable {\\n\\t\\tif (!productsMapping[id]) {\\n\\t\\t\\trevert TrustScriptShop__NotExistedProductId(id);\\n\\t\\t}\\n\\n\\t\\tuint256 priceInETH = products[id].priceInETH;\\n\\t\\tif (msg.value != priceInETH) {\\n\\t\\t\\trevert TrustScriptShop__UnequalAmountOfETHAndPriceInETH(\\n\\t\\t\\t\\tmsg.value,\\n\\t\\t\\t\\tpriceInETH\\n\\t\\t\\t);\\n\\t\\t}\\n\\n\\t\\tif (!allowedAttesters[msg.sender]) {\\n\\t\\t\\tallowedAttesters[msg.sender] = true;\\n\\t\\t}\\n\\n\\t\\t(bool success, ) = owner().call{ value: priceInETH }(\\\"\\\");\\n\\t\\tif (!success) {\\n\\t\\t\\trevert TrustScriptShop__FailedToSendETH();\\n\\t\\t}\\n\\n\\t\\temit BuyProductWithETH(products[id]);\\n\\t}\\n\\n\\tfunction buyProductWithToken(uint256 id, uint256 amountOfToken) public {\\n\\t\\tif (!productsMapping[id]) {\\n\\t\\t\\trevert TrustScriptShop__NotExistedProductId(id);\\n\\t\\t}\\n\\n\\t\\tuint256 priceInToken = products[id].priceInToken;\\n\\t\\tif (amountOfToken != priceInToken) {\\n\\t\\t\\trevert TrustScriptShop__UnequalAmountOfTokenAndPriceInToken(\\n\\t\\t\\t\\tamountOfToken,\\n\\t\\t\\t\\tpriceInToken\\n\\t\\t\\t);\\n\\t\\t}\\n\\n\\t\\tif (!allowedAttesters[msg.sender]) {\\n\\t\\t\\tallowedAttesters[msg.sender] = true;\\n\\t\\t}\\n\\n\\t\\ttrustScriptToken.transferFrom(msg.sender, owner(), amountOfToken);\\n\\n\\t\\temit BuyProductWithToken(products[id]);\\n\\t}\\n\\n\\tfunction reviewProduct(\\n\\t\\tuint256 id,\\n\\t\\tstring memory review\\n\\t) public onlyAllowedAttesters {\\n\\t\\tif (!productsMapping[id]) {\\n\\t\\t\\trevert TrustScriptShop__NotExistedProductId(id);\\n\\t\\t}\\n\\n\\t\\tProductReview memory productReview = ProductReview(\\n\\t\\t\\tid,\\n\\t\\t\\tmsg.sender,\\n\\t\\t\\treview\\n\\t\\t);\\n\\n\\t\\tbytes32 attestationUID = trustScriptProductReviewAttester\\n\\t\\t\\t.attestProductReview(productReview, owner());\\n\\n\\t\\temit ReviewProduct(productReview, attestationUID);\\n\\n\\t\\tproductReviewsArray.push(productReview);\\n\\t\\tnumberOfProductReviews++;\\n\\n\\t\\ttrustScriptToken.mint(\\n\\t\\t\\tmsg.sender,\\n\\t\\t\\tREVIEW_PRODUCT_REWARD * 10 ** trustScriptToken.decimals()\\n\\t\\t);\\n\\n\\t\\temit MintTokenToBuyer(msg.sender, REVIEW_PRODUCT_REWARD);\\n\\t}\\n\\n\\tfunction withdrawETH() public onlyOwner {\\n\\t\\tuint256 amountOfETH = address(this).balance;\\n\\n\\t\\t(bool success, ) = msg.sender.call{ value: amountOfETH }(\\\"\\\");\\n\\t\\tif (!success) {\\n\\t\\t\\trevert TrustScriptShop__FailedToSendETH();\\n\\t\\t}\\n\\n\\t\\temit WithdrawETH(amountOfETH);\\n\\t}\\n\\n\\tfunction withdrawToken() public onlyOwner {\\n\\t\\tuint256 amountOfToken = trustScriptToken.balanceOf(address(this));\\n\\t\\ttrustScriptToken.transfer(msg.sender, amountOfToken);\\n\\n\\t\\temit WithdrawToken(amountOfToken);\\n\\t}\\n\\n\\tfunction getAllProducts()\\n\\t\\tpublic\\n\\t\\tview\\n\\t\\treturns (Product[] memory allProducts)\\n\\t{\\n\\t\\tif (numberOfProducts == 0) {\\n\\t\\t\\treturn new Product[](0);\\n\\t\\t}\\n\\n\\t\\tallProducts = new Product[](numberOfProducts);\\n\\t\\tfor (uint i = 0; i < numberOfProducts; i++) {\\n\\t\\t\\tallProducts[i] = productsArray[i];\\n\\t\\t}\\n\\t\\treturn allProducts;\\n\\t}\\n\\n\\tfunction getAllProductReviews()\\n\\t\\tpublic\\n\\t\\tview\\n\\t\\treturns (ProductReview[] memory allProductReviews)\\n\\t{\\n\\t\\tif (numberOfProductReviews == 0) {\\n\\t\\t\\treturn new ProductReview[](0);\\n\\t\\t}\\n\\n\\t\\tallProductReviews = new ProductReview[](numberOfProductReviews);\\n\\t\\tfor (uint i = 0; i < numberOfProductReviews; i++) {\\n\\t\\t\\tallProductReviews[i] = productReviewsArray[i];\\n\\t\\t}\\n\\t\\treturn allProductReviews;\\n\\t}\\n}\\n\",\"keccak256\":\"0xcfedfd7ae58c6c3535b52d6d6eaa53a854704b8210dab5d5bb9ae4d945d60cf5\",\"license\":\"MIT\"},\"contracts/TrustScriptToken.sol\":{\"content\":\"//SPDX-License-Identifier: MIT\\r\\npragma solidity >=0.8.0 <0.9.0;\\r\\n\\r\\nimport \\\"@openzeppelin/contracts/token/ERC20/ERC20.sol\\\";\\r\\nimport \\\"@openzeppelin/contracts/access/Ownable.sol\\\";\\r\\n\\r\\ncontract TrustScriptToken is ERC20, Ownable {\\r\\n\\tmapping(address => bool) public allowedMinters;\\r\\n\\r\\n\\terror TrustScriptToken__UnauthorizedMinter(address minterAddress);\\r\\n\\r\\n\\tmodifier onlyAllowedMinters() {\\r\\n\\t\\tif (!allowedMinters[msg.sender])\\r\\n\\t\\t\\trevert TrustScriptToken__UnauthorizedMinter(msg.sender);\\r\\n\\t\\t_;\\r\\n\\t}\\r\\n\\r\\n\\tconstructor(address ownerAddress) ERC20(\\\"TrustScript\\\", \\\"TST\\\") {\\r\\n\\t\\tsuper.transferOwnership(ownerAddress);\\r\\n\\r\\n\\t\\tallowedMinters[ownerAddress] = true;\\r\\n\\t\\t_mint(ownerAddress, 1000 * 10 ** decimals());\\r\\n\\t}\\r\\n\\r\\n\\tfunction mint(\\r\\n\\t\\taddress beneficiary,\\r\\n\\t\\tuint256 amountOfToken\\r\\n\\t) external onlyAllowedMinters {\\r\\n\\t\\t_mint(beneficiary, amountOfToken);\\r\\n\\t}\\r\\n\\r\\n\\tfunction allowMinter(address minter) public onlyOwner {\\r\\n\\t\\tallowedMinters[minter] = true;\\r\\n\\t}\\r\\n}\\r\\n\",\"keccak256\":\"0xbb4be08e629f3bff4090b0ddfedc3c12f91defce0c24e7f8ef59c1ac6d24ca0f\",\"license\":\"MIT\"}},\"version\":1}",
+  "bytecode": "0x60806040523480156200001157600080fd5b5060405162001f7738038062001f778339810160408190526200003491620001d6565b6200003f3362000088565b6200005583620000d860201b620014131760201c565b600180546001600160a01b039384166001600160a01b031991821617909155600980549290931691161790555062000220565b600080546001600160a01b038381166001600160a01b0319831681178455604051919092169283917f8be0079c531659141344cd1fd0a4f28419497f9722a3daafe3b4186f6b6457e09190a35050565b620000e26200015b565b6001600160a01b0381166200014d5760405162461bcd60e51b815260206004820152602660248201527f4f776e61626c653a206e6577206f776e657220697320746865207a65726f206160448201526564647265737360d01b60648201526084015b60405180910390fd5b620001588162000088565b50565b6000546001600160a01b03163314620001b75760405162461bcd60e51b815260206004820181905260248201527f4f776e61626c653a2063616c6c6572206973206e6f7420746865206f776e6572604482015260640162000144565b565b80516001600160a01b0381168114620001d157600080fd5b919050565b600080600060608486031215620001ec57600080fd5b620001f784620001b9565b92506200020760208501620001b9565b91506200021760408501620001b9565b90509250925092565b611d4780620002306000396000f3fe6080604052600436106101355760003560e01c80637fede655116100ab578063bc6e66041161006f578063bc6e66041461038f578063c66301b2146103a5578063ca628c78146103bb578063d4bde5a4146103d0578063e086e5ec146103f0578063f2fde38b1461040557600080fd5b80637fede655146102ea5780638da5cb5b1461030c5780638ec8b9201461032a5780639209aba31461035a57806399f171a21461037a57600080fd5b806342ceec68116100fd57806342ceec68146101f65780634e20275114610216578063533fea02146102455780636b24808014610275578063715018a6146102b55780637acc0b20146102ca57600080fd5b806302ee3a521461013a5780630b048bf9146101655780630d0438e51461017a5780633d136ce61461019e578063408b464b146101d6575b600080fd5b34801561014657600080fd5b5061014f610425565b60405161015c91906115bb565b60405180910390f35b61017861017336600461161d565b610622565b005b34801561018657600080fd5b5061019060075481565b60405190815260200161015c565b3480156101aa57600080fd5b506001546101be906001600160a01b031681565b6040516001600160a01b03909116815260200161015c565b3480156101e257600080fd5b506101786101f13660046116d9565b610784565b34801561020257600080fd5b5061017861021136600461177d565b6109e2565b34801561022257600080fd5b5061023661023136600461161d565b610b5c565b60405161015c9392919061179f565b34801561025157600080fd5b5061026561026036600461161d565b610c25565b60405161015c94939291906117d2565b34801561028157600080fd5b506102a56102903660046117fe565b60086020526000908152604090205460ff1681565b604051901515815260200161015c565b3480156102c157600080fd5b50610178610ce9565b3480156102d657600080fd5b506102656102e536600461161d565b610cfd565b3480156102f657600080fd5b506102ff610d1f565b60405161015c9190611867565b34801561031857600080fd5b506000546001600160a01b03166101be565b34801561033657600080fd5b506102a561034536600461161d565b60026020526000908152604090205460ff1681565b34801561036657600080fd5b506101786103753660046118bc565b610f14565b34801561038657600080fd5b50610190600581565b34801561039b57600080fd5b506101906103e881565b3480156103b157600080fd5b5061019060055481565b3480156103c757600080fd5b5061017861124d565b3480156103dc57600080fd5b506009546101be906001600160a01b031681565b3480156103fc57600080fd5b50610178611369565b34801561041157600080fd5b506101786104203660046117fe565b611413565b606060055460000361048b576040805160008082526020820190925290610485565b6104726040518060800160405280600081526020016060815260200160008152602001600081525090565b8152602001906001900390816104475790505b50905090565b60055467ffffffffffffffff8111156104a6576104a6611636565b60405190808252806020026020018201604052801561050257816020015b6104ef6040518060800160405280600081526020016060815260200160008152602001600081525090565b8152602001906001900390816104c45790505b50905060005b60055481101561061e576003818154811061052557610525611903565b90600052602060002090600402016040518060800160405290816000820154815260200160018201805461055890611919565b80601f016020809104026020016040519081016040528092919081815260200182805461058490611919565b80156105d15780601f106105a6576101008083540402835291602001916105d1565b820191906000526020600020905b8154815290600101906020018083116105b457829003601f168201915b505050505081526020016002820154815260200160038201548152505082828151811061060057610600611903565b6020026020010181905250808061061690611969565b915050610508565b5090565b60008181526002602052604090205460ff16610659576040516307a9245160e31b8152600481018290526024015b60405180910390fd5b60008181526004602052604090206002015434811461069457604051630e937f8360e31b815234600482015260248101829052604401610650565b3360009081526008602052604090205460ff166106c657336000908152600860205260409020805460ff191660011790555b600080546040516001600160a01b039091169083908381818185875af1925050503d8060008114610713576040519150601f19603f3d011682016040523d82523d6000602084013e610718565b606091505b505090508061073a5760405163153eabe760e21b815260040160405180910390fd5b6000838152600460205260409081902090517f80b008c23ba396abd41f65d41a12010624d026bad3ccc607f74a049db22227829161077791611982565b60405180910390a1505050565b61078c61148c565b805160009081526002602052604090205460ff16156107c457805160405163041a639760e21b81526004810191909152602401610650565b60608101516107db90670de0b6b3a7640000611a35565b600160009054906101000a90046001600160a01b03166001600160a01b031663313ce5676040518163ffffffff1660e01b8152600401602060405180830381865afa15801561082e573d6000803e3d6000fd5b505050506040513d601f19601f820116820180604052508101906108529190611a52565b61085d90600a611b59565b6103e8836040015161086f9190611a35565b6108799190611a35565b146108ac5780604001518160600151604051630715c89760e21b8152600401610650929190918252602082015260400190565b805160009081526002602090815260408220805460ff19166001908117909155600380549182018155909252825160049092027fc2575a0e9e593c00f959f8c92f12db2869c3395a3b0502d05e2516446f71f85b8101928355908301518392917fc2575a0e9e593c00f959f8c92f12db2869c3395a3b0502d05e2516446f71f85c01906109399082611bb7565b50604082810151600283015560609092015160039091015581516000908152600460209081529190208251815590820151829190600182019061097c9082611bb7565b5060408201516002820155606090910151600390910155600580549060006109a383611969565b91905055507f6081ab90273434d14cdb413a1372cf450edb167a43bd13f83192bac5c202e829816040516109d79190611c77565b60405180910390a150565b60008281526002602052604090205460ff16610a14576040516307a9245160e31b815260048101839052602401610650565b600082815260046020526040902060030154818114610a5057604051632839176f60e11b81526004810183905260248101829052604401610650565b3360009081526008602052604090205460ff16610a8257336000908152600860205260409020805460ff191660011790555b6001546001600160a01b03166323b872dd33610aa66000546001600160a01b031690565b6040516001600160e01b031960e085901b1681526001600160a01b03928316600482015291166024820152604481018590526064016020604051808303816000875af1158015610afa573d6000803e3d6000fd5b505050506040513d601f19601f82011682018060405250810190610b1e9190611c8a565b506000838152600460205260409081902090517f22480d75c984baa5c2c0864c88e2c5468b406560a6436d46cc009641e08073ee9161077791611982565b60068181548110610b6c57600080fd5b60009182526020909120600390910201805460018201546002830180549294506001600160a01b039091169291610ba290611919565b80601f0160208091040260200160405190810160405280929190818152602001828054610bce90611919565b8015610c1b5780601f10610bf057610100808354040283529160200191610c1b565b820191906000526020600020905b815481529060010190602001808311610bfe57829003601f168201915b5050505050905083565b60038181548110610c3557600080fd5b60009182526020909120600490910201805460018201805491935090610c5a90611919565b80601f0160208091040260200160405190810160405280929190818152602001828054610c8690611919565b8015610cd35780601f10610ca857610100808354040283529160200191610cd3565b820191906000526020600020905b815481529060010190602001808311610cb657829003601f168201915b5050505050908060020154908060030154905084565b610cf161148c565b610cfb60006114e6565b565b60046020526000908152604090208054600182018054919291610c5a90611919565b6060600754600003610d75576040805160008082526020820190925290610485565b60408051606080820183526000808352602083015291810191909152815260200190600190039081610d4157905050905090565b60075467ffffffffffffffff811115610d9057610d90611636565b604051908082528060200260200182016040528015610ddd57816020015b60408051606080820183526000808352602083015291810191909152815260200190600190039081610dae5790505b50905060005b60075481101561061e5760068181548110610e0057610e00611903565b9060005260206000209060030201604051806060016040529081600082015481526020016001820160009054906101000a90046001600160a01b03166001600160a01b03166001600160a01b03168152602001600282018054610e6290611919565b80601f0160208091040260200160405190810160405280929190818152602001828054610e8e90611919565b8015610edb5780601f10610eb057610100808354040283529160200191610edb565b820191906000526020600020905b815481529060010190602001808311610ebe57829003601f168201915b505050505081525050828281518110610ef657610ef6611903565b60200260200101819052508080610f0c90611969565b915050610de3565b3360009081526008602052604090205460ff16610f4657604051633a5e3bf960e01b8152336004820152602401610650565b60008281526002602052604090205460ff16610f78576040516307a9245160e31b815260048101839052602401610650565b604080516060810182528381523360208201529081018290526009546000906001600160a01b0316639eb2546183610fb86000546001600160a01b031690565b6040518363ffffffff1660e01b8152600401610fd5929190611cac565b6020604051808303816000875af1158015610ff4573d6000803e3d6000fd5b505050506040513d601f19601f820116820180604052508101906110189190611cd6565b90507ff12d448b61b358eff802784abaa5526f0709c9af624e50e198979547d75125a4828260405161104b929190611cef565b60405180910390a16006805460018101825560009190915282517ff652222313e28459528d920b65115c16c04f3efc82aaedc97be59f3f377c0d3f600390920291820190815560208401517ff652222313e28459528d920b65115c16c04f3efc82aaedc97be59f3f377c0d40830180546001600160a01b0319166001600160a01b03909216919091179055604084015184927ff652222313e28459528d920b65115c16c04f3efc82aaedc97be59f3f377c0d41019061110a9082611bb7565b5050600780549150600061111d83611969565b90915550506001546040805163313ce56760e01b815290516001600160a01b03909216916340c10f19913391849163313ce5679160048083019260209291908290030181865afa158015611175573d6000803e3d6000fd5b505050506040513d601f19601f820116820180604052508101906111999190611a52565b6111a490600a611b59565b6111af906005611a35565b6040516001600160e01b031960e085901b1681526001600160a01b0390921660048301526024820152604401600060405180830381600087803b1580156111f557600080fd5b505af1158015611209573d6000803e3d6000fd5b505060408051338152600560208201527f1a628df0209a48522b66d5226782fac0327ed236ff817fdbcb20425bb97e32f3935001905060405180910390a150505050565b61125561148c565b6001546040516370a0823160e01b81523060048201526000916001600160a01b0316906370a0823190602401602060405180830381865afa15801561129e573d6000803e3d6000fd5b505050506040513d601f19601f820116820180604052508101906112c29190611cd6565b60015460405163a9059cbb60e01b8152336004820152602481018390529192506001600160a01b03169063a9059cbb906044016020604051808303816000875af1158015611314573d6000803e3d6000fd5b505050506040513d601f19601f820116820180604052508101906113389190611c8a565b506040518181527fa4b910fb649c34bca8f9ecc6ba43090dbd1d14f3197d9f10ca054de15da71601906020016109d7565b61137161148c565b6040514790600090339083908381818185875af1925050503d80600081146113b5576040519150601f19603f3d011682016040523d82523d6000602084013e6113ba565b606091505b50509050806113dc5760405163153eabe760e21b815260040160405180910390fd5b6040518281527f94effa14ea3a1ef396fa2fd829336d1597f1d76b548c26bfa2332869706638af9060200160405180910390a15050565b61141b61148c565b6001600160a01b0381166114805760405162461bcd60e51b815260206004820152602660248201527f4f776e61626c653a206e6577206f776e657220697320746865207a65726f206160448201526564647265737360d01b6064820152608401610650565b611489816114e6565b50565b6000546001600160a01b03163314610cfb5760405162461bcd60e51b815260206004820181905260248201527f4f776e61626c653a2063616c6c6572206973206e6f7420746865206f776e65726044820152606401610650565b600080546001600160a01b038381166001600160a01b0319831681178455604051919092169283917f8be0079c531659141344cd1fd0a4f28419497f9722a3daafe3b4186f6b6457e09190a35050565b6000815180845260005b8181101561155c57602081850181015186830182015201611540565b506000602082860101526020601f19601f83011685010191505092915050565b80518252600060208201516080602085015261159b6080850182611536565b905060408301516040850152606083015160608501528091505092915050565b6000602080830181845280855180835260408601915060408160051b870101925083870160005b8281101561161057603f198886030184526115fe85835161157c565b945092850192908501906001016115e2565b5092979650505050505050565b60006020828403121561162f57600080fd5b5035919050565b634e487b7160e01b600052604160045260246000fd5b600082601f83011261165d57600080fd5b813567ffffffffffffffff8082111561167857611678611636565b604051601f8301601f19908116603f011681019082821181831017156116a0576116a0611636565b816040528381528660208588010111156116b957600080fd5b836020870160208301376000602085830101528094505050505092915050565b6000602082840312156116eb57600080fd5b813567ffffffffffffffff8082111561170357600080fd5b908301906080828603121561171757600080fd5b60405160808101818110838211171561173257611732611636565b6040528235815260208301358281111561174b57600080fd5b6117578782860161164c565b602083015250604083013560408201526060830135606082015280935050505092915050565b6000806040838503121561179057600080fd5b50508035926020909101359150565b8381526001600160a01b03831660208201526060604082018190526000906117c990830184611536565b95945050505050565b8481526080602082015260006117eb6080830186611536565b6040830194909452506060015292915050565b60006020828403121561181057600080fd5b81356001600160a01b038116811461182757600080fd5b9392505050565b8051825260018060a01b036020820151166020830152600060408201516060604085015261185f6060850182611536565b949350505050565b6000602080830181845280855180835260408601915060408160051b870101925083870160005b8281101561161057603f198886030184526118aa85835161182e565b9450928501929085019060010161188e565b600080604083850312156118cf57600080fd5b82359150602083013567ffffffffffffffff8111156118ed57600080fd5b6118f98582860161164c565b9150509250929050565b634e487b7160e01b600052603260045260246000fd5b600181811c9082168061192d57607f821691505b60208210810361194d57634e487b7160e01b600052602260045260246000fd5b50919050565b634e487b7160e01b600052601160045260246000fd5b60006001820161197b5761197b611953565b5060010190565b60006020808352835481840152600180850160806040860152600081546119a881611919565b8060a089015260c0858316600081146119c857600181146119e257611a10565b60ff1984168a83015282151560051b8a0182019450611a10565b856000528760002060005b84811015611a085781548c82018501529088019089016119ed565b8b0183019550505b5050505060028701546060870152600387015460808701528094505050505092915050565b8082028115828204841417611a4c57611a4c611953565b92915050565b600060208284031215611a6457600080fd5b815160ff8116811461182757600080fd5b600181815b80851115611ab0578160001904821115611a9657611a96611953565b80851615611aa357918102915b93841c9390800290611a7a565b509250929050565b600082611ac757506001611a4c565b81611ad457506000611a4c565b8160018114611aea5760028114611af457611b10565b6001915050611a4c565b60ff841115611b0557611b05611953565b50506001821b611a4c565b5060208310610133831016604e8410600b8410161715611b33575081810a611a4c565b611b3d8383611a75565b8060001904821115611b5157611b51611953565b029392505050565b600061182760ff841683611ab8565b601f821115611bb257600081815260208120601f850160051c81016020861015611b8f5750805b601f850160051c820191505b81811015611bae57828155600101611b9b565b5050505b505050565b815167ffffffffffffffff811115611bd157611bd1611636565b611be581611bdf8454611919565b84611b68565b602080601f831160018114611c1a5760008415611c025750858301515b600019600386901b1c1916600185901b178555611bae565b600085815260208120601f198616915b82811015611c4957888601518255948401946001909101908401611c2a565b5085821015611c675787850151600019600388901b60f8161c191681555b5050505050600190811b01905550565b602081526000611827602083018461157c565b600060208284031215611c9c57600080fd5b8151801515811461182757600080fd5b604081526000611cbf604083018561182e565b905060018060a01b03831660208301529392505050565b600060208284031215611ce857600080fd5b5051919050565b604081526000611d02604083018561182e565b9050826020830152939250505056fea26469706673582212203a3e095763617b6095afbc42b5b6cdee8c1c4dc877832f9f43b15ae9d5a3cecc64736f6c63430008110033",
+  "deployedBytecode": "0x6080604052600436106101355760003560e01c80637fede655116100ab578063bc6e66041161006f578063bc6e66041461038f578063c66301b2146103a5578063ca628c78146103bb578063d4bde5a4146103d0578063e086e5ec146103f0578063f2fde38b1461040557600080fd5b80637fede655146102ea5780638da5cb5b1461030c5780638ec8b9201461032a5780639209aba31461035a57806399f171a21461037a57600080fd5b806342ceec68116100fd57806342ceec68146101f65780634e20275114610216578063533fea02146102455780636b24808014610275578063715018a6146102b55780637acc0b20146102ca57600080fd5b806302ee3a521461013a5780630b048bf9146101655780630d0438e51461017a5780633d136ce61461019e578063408b464b146101d6575b600080fd5b34801561014657600080fd5b5061014f610425565b60405161015c91906115bb565b60405180910390f35b61017861017336600461161d565b610622565b005b34801561018657600080fd5b5061019060075481565b60405190815260200161015c565b3480156101aa57600080fd5b506001546101be906001600160a01b031681565b6040516001600160a01b03909116815260200161015c565b3480156101e257600080fd5b506101786101f13660046116d9565b610784565b34801561020257600080fd5b5061017861021136600461177d565b6109e2565b34801561022257600080fd5b5061023661023136600461161d565b610b5c565b60405161015c9392919061179f565b34801561025157600080fd5b5061026561026036600461161d565b610c25565b60405161015c94939291906117d2565b34801561028157600080fd5b506102a56102903660046117fe565b60086020526000908152604090205460ff1681565b604051901515815260200161015c565b3480156102c157600080fd5b50610178610ce9565b3480156102d657600080fd5b506102656102e536600461161d565b610cfd565b3480156102f657600080fd5b506102ff610d1f565b60405161015c9190611867565b34801561031857600080fd5b506000546001600160a01b03166101be565b34801561033657600080fd5b506102a561034536600461161d565b60026020526000908152604090205460ff1681565b34801561036657600080fd5b506101786103753660046118bc565b610f14565b34801561038657600080fd5b50610190600581565b34801561039b57600080fd5b506101906103e881565b3480156103b157600080fd5b5061019060055481565b3480156103c757600080fd5b5061017861124d565b3480156103dc57600080fd5b506009546101be906001600160a01b031681565b3480156103fc57600080fd5b50610178611369565b34801561041157600080fd5b506101786104203660046117fe565b611413565b606060055460000361048b576040805160008082526020820190925290610485565b6104726040518060800160405280600081526020016060815260200160008152602001600081525090565b8152602001906001900390816104475790505b50905090565b60055467ffffffffffffffff8111156104a6576104a6611636565b60405190808252806020026020018201604052801561050257816020015b6104ef6040518060800160405280600081526020016060815260200160008152602001600081525090565b8152602001906001900390816104c45790505b50905060005b60055481101561061e576003818154811061052557610525611903565b90600052602060002090600402016040518060800160405290816000820154815260200160018201805461055890611919565b80601f016020809104026020016040519081016040528092919081815260200182805461058490611919565b80156105d15780601f106105a6576101008083540402835291602001916105d1565b820191906000526020600020905b8154815290600101906020018083116105b457829003601f168201915b505050505081526020016002820154815260200160038201548152505082828151811061060057610600611903565b6020026020010181905250808061061690611969565b915050610508565b5090565b60008181526002602052604090205460ff16610659576040516307a9245160e31b8152600481018290526024015b60405180910390fd5b60008181526004602052604090206002015434811461069457604051630e937f8360e31b815234600482015260248101829052604401610650565b3360009081526008602052604090205460ff166106c657336000908152600860205260409020805460ff191660011790555b600080546040516001600160a01b039091169083908381818185875af1925050503d8060008114610713576040519150601f19603f3d011682016040523d82523d6000602084013e610718565b606091505b505090508061073a5760405163153eabe760e21b815260040160405180910390fd5b6000838152600460205260409081902090517f80b008c23ba396abd41f65d41a12010624d026bad3ccc607f74a049db22227829161077791611982565b60405180910390a1505050565b61078c61148c565b805160009081526002602052604090205460ff16156107c457805160405163041a639760e21b81526004810191909152602401610650565b60608101516107db90670de0b6b3a7640000611a35565b600160009054906101000a90046001600160a01b03166001600160a01b031663313ce5676040518163ffffffff1660e01b8152600401602060405180830381865afa15801561082e573d6000803e3d6000fd5b505050506040513d601f19601f820116820180604052508101906108529190611a52565b61085d90600a611b59565b6103e8836040015161086f9190611a35565b6108799190611a35565b146108ac5780604001518160600151604051630715c89760e21b8152600401610650929190918252602082015260400190565b805160009081526002602090815260408220805460ff19166001908117909155600380549182018155909252825160049092027fc2575a0e9e593c00f959f8c92f12db2869c3395a3b0502d05e2516446f71f85b8101928355908301518392917fc2575a0e9e593c00f959f8c92f12db2869c3395a3b0502d05e2516446f71f85c01906109399082611bb7565b50604082810151600283015560609092015160039091015581516000908152600460209081529190208251815590820151829190600182019061097c9082611bb7565b5060408201516002820155606090910151600390910155600580549060006109a383611969565b91905055507f6081ab90273434d14cdb413a1372cf450edb167a43bd13f83192bac5c202e829816040516109d79190611c77565b60405180910390a150565b60008281526002602052604090205460ff16610a14576040516307a9245160e31b815260048101839052602401610650565b600082815260046020526040902060030154818114610a5057604051632839176f60e11b81526004810183905260248101829052604401610650565b3360009081526008602052604090205460ff16610a8257336000908152600860205260409020805460ff191660011790555b6001546001600160a01b03166323b872dd33610aa66000546001600160a01b031690565b6040516001600160e01b031960e085901b1681526001600160a01b03928316600482015291166024820152604481018590526064016020604051808303816000875af1158015610afa573d6000803e3d6000fd5b505050506040513d601f19601f82011682018060405250810190610b1e9190611c8a565b506000838152600460205260409081902090517f22480d75c984baa5c2c0864c88e2c5468b406560a6436d46cc009641e08073ee9161077791611982565b60068181548110610b6c57600080fd5b60009182526020909120600390910201805460018201546002830180549294506001600160a01b039091169291610ba290611919565b80601f0160208091040260200160405190810160405280929190818152602001828054610bce90611919565b8015610c1b5780601f10610bf057610100808354040283529160200191610c1b565b820191906000526020600020905b815481529060010190602001808311610bfe57829003601f168201915b5050505050905083565b60038181548110610c3557600080fd5b60009182526020909120600490910201805460018201805491935090610c5a90611919565b80601f0160208091040260200160405190810160405280929190818152602001828054610c8690611919565b8015610cd35780601f10610ca857610100808354040283529160200191610cd3565b820191906000526020600020905b815481529060010190602001808311610cb657829003601f168201915b5050505050908060020154908060030154905084565b610cf161148c565b610cfb60006114e6565b565b60046020526000908152604090208054600182018054919291610c5a90611919565b6060600754600003610d75576040805160008082526020820190925290610485565b60408051606080820183526000808352602083015291810191909152815260200190600190039081610d4157905050905090565b60075467ffffffffffffffff811115610d9057610d90611636565b604051908082528060200260200182016040528015610ddd57816020015b60408051606080820183526000808352602083015291810191909152815260200190600190039081610dae5790505b50905060005b60075481101561061e5760068181548110610e0057610e00611903565b9060005260206000209060030201604051806060016040529081600082015481526020016001820160009054906101000a90046001600160a01b03166001600160a01b03166001600160a01b03168152602001600282018054610e6290611919565b80601f0160208091040260200160405190810160405280929190818152602001828054610e8e90611919565b8015610edb5780601f10610eb057610100808354040283529160200191610edb565b820191906000526020600020905b815481529060010190602001808311610ebe57829003601f168201915b505050505081525050828281518110610ef657610ef6611903565b60200260200101819052508080610f0c90611969565b915050610de3565b3360009081526008602052604090205460ff16610f4657604051633a5e3bf960e01b8152336004820152602401610650565b60008281526002602052604090205460ff16610f78576040516307a9245160e31b815260048101839052602401610650565b604080516060810182528381523360208201529081018290526009546000906001600160a01b0316639eb2546183610fb86000546001600160a01b031690565b6040518363ffffffff1660e01b8152600401610fd5929190611cac565b6020604051808303816000875af1158015610ff4573d6000803e3d6000fd5b505050506040513d601f19601f820116820180604052508101906110189190611cd6565b90507ff12d448b61b358eff802784abaa5526f0709c9af624e50e198979547d75125a4828260405161104b929190611cef565b60405180910390a16006805460018101825560009190915282517ff652222313e28459528d920b65115c16c04f3efc82aaedc97be59f3f377c0d3f600390920291820190815560208401517ff652222313e28459528d920b65115c16c04f3efc82aaedc97be59f3f377c0d40830180546001600160a01b0319166001600160a01b03909216919091179055604084015184927ff652222313e28459528d920b65115c16c04f3efc82aaedc97be59f3f377c0d41019061110a9082611bb7565b5050600780549150600061111d83611969565b90915550506001546040805163313ce56760e01b815290516001600160a01b03909216916340c10f19913391849163313ce5679160048083019260209291908290030181865afa158015611175573d6000803e3d6000fd5b505050506040513d601f19601f820116820180604052508101906111999190611a52565b6111a490600a611b59565b6111af906005611a35565b6040516001600160e01b031960e085901b1681526001600160a01b0390921660048301526024820152604401600060405180830381600087803b1580156111f557600080fd5b505af1158015611209573d6000803e3d6000fd5b505060408051338152600560208201527f1a628df0209a48522b66d5226782fac0327ed236ff817fdbcb20425bb97e32f3935001905060405180910390a150505050565b61125561148c565b6001546040516370a0823160e01b81523060048201526000916001600160a01b0316906370a0823190602401602060405180830381865afa15801561129e573d6000803e3d6000fd5b505050506040513d601f19601f820116820180604052508101906112c29190611cd6565b60015460405163a9059cbb60e01b8152336004820152602481018390529192506001600160a01b03169063a9059cbb906044016020604051808303816000875af1158015611314573d6000803e3d6000fd5b505050506040513d601f19601f820116820180604052508101906113389190611c8a565b506040518181527fa4b910fb649c34bca8f9ecc6ba43090dbd1d14f3197d9f10ca054de15da71601906020016109d7565b61137161148c565b6040514790600090339083908381818185875af1925050503d80600081146113b5576040519150601f19603f3d011682016040523d82523d6000602084013e6113ba565b606091505b50509050806113dc5760405163153eabe760e21b815260040160405180910390fd5b6040518281527f94effa14ea3a1ef396fa2fd829336d1597f1d76b548c26bfa2332869706638af9060200160405180910390a15050565b61141b61148c565b6001600160a01b0381166114805760405162461bcd60e51b815260206004820152602660248201527f4f776e61626c653a206e6577206f776e657220697320746865207a65726f206160448201526564647265737360d01b6064820152608401610650565b611489816114e6565b50565b6000546001600160a01b03163314610cfb5760405162461bcd60e51b815260206004820181905260248201527f4f776e61626c653a2063616c6c6572206973206e6f7420746865206f776e65726044820152606401610650565b600080546001600160a01b038381166001600160a01b0319831681178455604051919092169283917f8be0079c531659141344cd1fd0a4f28419497f9722a3daafe3b4186f6b6457e09190a35050565b6000815180845260005b8181101561155c57602081850181015186830182015201611540565b506000602082860101526020601f19601f83011685010191505092915050565b80518252600060208201516080602085015261159b6080850182611536565b905060408301516040850152606083015160608501528091505092915050565b6000602080830181845280855180835260408601915060408160051b870101925083870160005b8281101561161057603f198886030184526115fe85835161157c565b945092850192908501906001016115e2565b5092979650505050505050565b60006020828403121561162f57600080fd5b5035919050565b634e487b7160e01b600052604160045260246000fd5b600082601f83011261165d57600080fd5b813567ffffffffffffffff8082111561167857611678611636565b604051601f8301601f19908116603f011681019082821181831017156116a0576116a0611636565b816040528381528660208588010111156116b957600080fd5b836020870160208301376000602085830101528094505050505092915050565b6000602082840312156116eb57600080fd5b813567ffffffffffffffff8082111561170357600080fd5b908301906080828603121561171757600080fd5b60405160808101818110838211171561173257611732611636565b6040528235815260208301358281111561174b57600080fd5b6117578782860161164c565b602083015250604083013560408201526060830135606082015280935050505092915050565b6000806040838503121561179057600080fd5b50508035926020909101359150565b8381526001600160a01b03831660208201526060604082018190526000906117c990830184611536565b95945050505050565b8481526080602082015260006117eb6080830186611536565b6040830194909452506060015292915050565b60006020828403121561181057600080fd5b81356001600160a01b038116811461182757600080fd5b9392505050565b8051825260018060a01b036020820151166020830152600060408201516060604085015261185f6060850182611536565b949350505050565b6000602080830181845280855180835260408601915060408160051b870101925083870160005b8281101561161057603f198886030184526118aa85835161182e565b9450928501929085019060010161188e565b600080604083850312156118cf57600080fd5b82359150602083013567ffffffffffffffff8111156118ed57600080fd5b6118f98582860161164c565b9150509250929050565b634e487b7160e01b600052603260045260246000fd5b600181811c9082168061192d57607f821691505b60208210810361194d57634e487b7160e01b600052602260045260246000fd5b50919050565b634e487b7160e01b600052601160045260246000fd5b60006001820161197b5761197b611953565b5060010190565b60006020808352835481840152600180850160806040860152600081546119a881611919565b8060a089015260c0858316600081146119c857600181146119e257611a10565b60ff1984168a83015282151560051b8a0182019450611a10565b856000528760002060005b84811015611a085781548c82018501529088019089016119ed565b8b0183019550505b5050505060028701546060870152600387015460808701528094505050505092915050565b8082028115828204841417611a4c57611a4c611953565b92915050565b600060208284031215611a6457600080fd5b815160ff8116811461182757600080fd5b600181815b80851115611ab0578160001904821115611a9657611a96611953565b80851615611aa357918102915b93841c9390800290611a7a565b509250929050565b600082611ac757506001611a4c565b81611ad457506000611a4c565b8160018114611aea5760028114611af457611b10565b6001915050611a4c565b60ff841115611b0557611b05611953565b50506001821b611a4c565b5060208310610133831016604e8410600b8410161715611b33575081810a611a4c565b611b3d8383611a75565b8060001904821115611b5157611b51611953565b029392505050565b600061182760ff841683611ab8565b601f821115611bb257600081815260208120601f850160051c81016020861015611b8f5750805b601f850160051c820191505b81811015611bae57828155600101611b9b565b5050505b505050565b815167ffffffffffffffff811115611bd157611bd1611636565b611be581611bdf8454611919565b84611b68565b602080601f831160018114611c1a5760008415611c025750858301515b600019600386901b1c1916600185901b178555611bae565b600085815260208120601f198616915b82811015611c4957888601518255948401946001909101908401611c2a565b5085821015611c675787850151600019600388901b60f8161c191681555b5050505050600190811b01905550565b602081526000611827602083018461157c565b600060208284031215611c9c57600080fd5b8151801515811461182757600080fd5b604081526000611cbf604083018561182e565b905060018060a01b03831660208301529392505050565b600060208284031215611ce857600080fd5b5051919050565b604081526000611d02604083018561182e565b9050826020830152939250505056fea26469706673582212203a3e095763617b6095afbc42b5b6cdee8c1c4dc877832f9f43b15ae9d5a3cecc64736f6c63430008110033",
+  "devdoc": {
+    "kind": "dev",
+    "methods": {
+      "owner()": {
+        "details": "Returns the address of the current owner."
+      },
+      "renounceOwnership()": {
+        "details": "Leaves the contract without owner. It will not be possible to call `onlyOwner` functions. Can only be called by the current owner. NOTE: Renouncing ownership will leave the contract without an owner, thereby disabling any functionality that is only available to the owner."
+      },
+      "transferOwnership(address)": {
+        "details": "Transfers ownership of the contract to a new account (`newOwner`). Can only be called by the current owner."
+      }
+    },
+    "version": 1
+  },
+  "userdoc": {
+    "kind": "user",
+    "methods": {},
+    "version": 1
+  },
+  "storageLayout": {
+    "storage": [
+      {
+        "astId": 490,
+        "contract": "contracts/TrustScriptShop.sol:TrustScriptShop",
+        "label": "_owner",
+        "offset": 0,
+        "slot": "0",
+        "type": "t_address"
+      },
+      {
+        "astId": 1419,
+        "contract": "contracts/TrustScriptShop.sol:TrustScriptShop",
+        "label": "trustScriptToken",
+        "offset": 0,
+        "slot": "1",
+        "type": "t_contract(TrustScriptToken)2104"
+      },
+      {
+        "astId": 1429,
+        "contract": "contracts/TrustScriptShop.sol:TrustScriptShop",
+        "label": "productsMapping",
+        "offset": 0,
+        "slot": "2",
+        "type": "t_mapping(t_uint256,t_bool)"
+      },
+      {
+        "astId": 1433,
+        "contract": "contracts/TrustScriptShop.sol:TrustScriptShop",
+        "label": "productsArray",
+        "offset": 0,
+        "slot": "3",
+        "type": "t_array(t_struct(Product)1416_storage)dyn_storage"
+      },
+      {
+        "astId": 1438,
+        "contract": "contracts/TrustScriptShop.sol:TrustScriptShop",
+        "label": "products",
+        "offset": 0,
+        "slot": "4",
+        "type": "t_mapping(t_uint256,t_struct(Product)1416_storage)"
+      },
+      {
+        "astId": 1440,
+        "contract": "contracts/TrustScriptShop.sol:TrustScriptShop",
+        "label": "numberOfProducts",
+        "offset": 0,
+        "slot": "5",
+        "type": "t_uint256"
+      },
+      {
+        "astId": 1444,
+        "contract": "contracts/TrustScriptShop.sol:TrustScriptShop",
+        "label": "productReviewsArray",
+        "offset": 0,
+        "slot": "6",
+        "type": "t_array(t_struct(ProductReview)1323_storage)dyn_storage"
+      },
+      {
+        "astId": 1446,
+        "contract": "contracts/TrustScriptShop.sol:TrustScriptShop",
+        "label": "numberOfProductReviews",
+        "offset": 0,
+        "slot": "7",
+        "type": "t_uint256"
+      },
+      {
+        "astId": 1450,
+        "contract": "contracts/TrustScriptShop.sol:TrustScriptShop",
+        "label": "allowedAttesters",
+        "offset": 0,
+        "slot": "8",
+        "type": "t_mapping(t_address,t_bool)"
+      },
+      {
+        "astId": 1453,
+        "contract": "contracts/TrustScriptShop.sol:TrustScriptShop",
+        "label": "trustScriptProductReviewAttester",
+        "offset": 0,
+        "slot": "9",
+        "type": "t_contract(TrustScriptProductReviewAttester)1399"
+      }
+    ],
+    "types": {
+      "t_address": {
+        "encoding": "inplace",
+        "label": "address",
+        "numberOfBytes": "20"
+      },
+      "t_array(t_struct(Product)1416_storage)dyn_storage": {
+        "base": "t_struct(Product)1416_storage",
+        "encoding": "dynamic_array",
+        "label": "struct TrustScriptShop.Product[]",
+        "numberOfBytes": "32"
+      },
+      "t_array(t_struct(ProductReview)1323_storage)dyn_storage": {
+        "base": "t_struct(ProductReview)1323_storage",
+        "encoding": "dynamic_array",
+        "label": "struct ProductReview[]",
+        "numberOfBytes": "32"
+      },
+      "t_bool": {
+        "encoding": "inplace",
+        "label": "bool",
+        "numberOfBytes": "1"
+      },
+      "t_contract(TrustScriptProductReviewAttester)1399": {
+        "encoding": "inplace",
+        "label": "contract TrustScriptProductReviewAttester",
+        "numberOfBytes": "20"
+      },
+      "t_contract(TrustScriptToken)2104": {
+        "encoding": "inplace",
+        "label": "contract TrustScriptToken",
+        "numberOfBytes": "20"
+      },
+      "t_mapping(t_address,t_bool)": {
+        "encoding": "mapping",
+        "key": "t_address",
+        "label": "mapping(address => bool)",
+        "numberOfBytes": "32",
+        "value": "t_bool"
+      },
+      "t_mapping(t_uint256,t_bool)": {
+        "encoding": "mapping",
+        "key": "t_uint256",
+        "label": "mapping(uint256 => bool)",
+        "numberOfBytes": "32",
+        "value": "t_bool"
+      },
+      "t_mapping(t_uint256,t_struct(Product)1416_storage)": {
+        "encoding": "mapping",
+        "key": "t_uint256",
+        "label": "mapping(uint256 => struct TrustScriptShop.Product)",
+        "numberOfBytes": "32",
+        "value": "t_struct(Product)1416_storage"
+      },
+      "t_string_storage": {
+        "encoding": "bytes",
+        "label": "string",
+        "numberOfBytes": "32"
+      },
+      "t_struct(Product)1416_storage": {
+        "encoding": "inplace",
+        "label": "struct TrustScriptShop.Product",
+        "members": [
+          {
+            "astId": 1409,
+            "contract": "contracts/TrustScriptShop.sol:TrustScriptShop",
+            "label": "id",
+            "offset": 0,
+            "slot": "0",
+            "type": "t_uint256"
+          },
+          {
+            "astId": 1411,
+            "contract": "contracts/TrustScriptShop.sol:TrustScriptShop",
+            "label": "name",
+            "offset": 0,
+            "slot": "1",
+            "type": "t_string_storage"
+          },
+          {
+            "astId": 1413,
+            "contract": "contracts/TrustScriptShop.sol:TrustScriptShop",
+            "label": "priceInETH",
+            "offset": 0,
+            "slot": "2",
+            "type": "t_uint256"
+          },
+          {
+            "astId": 1415,
+            "contract": "contracts/TrustScriptShop.sol:TrustScriptShop",
+            "label": "priceInToken",
+            "offset": 0,
+            "slot": "3",
+            "type": "t_uint256"
+          }
+        ],
+        "numberOfBytes": "128"
+      },
+      "t_struct(ProductReview)1323_storage": {
+        "encoding": "inplace",
+        "label": "struct ProductReview",
+        "members": [
+          {
+            "astId": 1318,
+            "contract": "contracts/TrustScriptShop.sol:TrustScriptShop",
+            "label": "productId",
+            "offset": 0,
+            "slot": "0",
+            "type": "t_uint256"
+          },
+          {
+            "astId": 1320,
+            "contract": "contracts/TrustScriptShop.sol:TrustScriptShop",
+            "label": "buyerAddress",
+            "offset": 0,
+            "slot": "1",
+            "type": "t_address"
+          },
+          {
+            "astId": 1322,
+            "contract": "contracts/TrustScriptShop.sol:TrustScriptShop",
+            "label": "review",
+            "offset": 0,
+            "slot": "2",
+            "type": "t_string_storage"
+          }
+        ],
+        "numberOfBytes": "96"
+      },
+      "t_uint256": {
+        "encoding": "inplace",
+        "label": "uint256",
+        "numberOfBytes": "32"
+      }
+    }
+  }
+}

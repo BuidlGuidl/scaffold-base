@@ -47,6 +47,7 @@
     "typescript": "^5.1.6"
   },
   "dependencies": {
+    "@ethereum-attestation-service/eas-contracts": "^1.7.1",
     "@openzeppelin/contracts": "^4.8.1",
     "@typechain/ethers-v6": "^0.5.1",
     "dotenv": "^16.0.3",
