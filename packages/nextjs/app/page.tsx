@@ -23,7 +23,7 @@ const Home: NextPage = () => {
               Scaffold-Base
             </div>
           </h1>
-          <div className="flex justify-center items-center space-x-2">
+          <div className="flex justify-center items-center space-x-2 flex-col sm:flex-row">
             <p className="my-2 font-medium">Connected Address:</p>
             <Address address={connectedAddress} />
           </div>
