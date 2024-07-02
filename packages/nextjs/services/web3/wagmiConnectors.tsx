@@ -1,4 +1,3 @@
-import { coinbaseSdkWallet } from "./coinbase-sw-connector/coinbaseSWConnector";
 import { connectorsForWallets } from "@rainbow-me/rainbowkit";
 import {
   coinbaseWallet,
@@ -26,10 +25,19 @@ const wallets = [
     : []),
 ];
 
+type CoinbaseWalletOptions = Parameters<typeof coinbaseWallet>[0];
+const coinbaseSmartWalletOnly = (params: CoinbaseWalletOptions) => coinbaseWallet(params);
+coinbaseSmartWalletOnly.preference = "smartWalletOnly";
+
 const supportedWalletGroup = { groupName: "Supported Wallets", wallets };
-// Show the Smart Wallets group only if Base Sepolia is present in the targetNetworks
-const rainbowGroups = targetNetworks.some(network => network.id === (chains.baseSepolia as chains.Chain).id)
-  ? [{ groupName: "Smart Wallets", wallets: [coinbaseSdkWallet] }, supportedWalletGroup]
+// Show the Smart Wallets group only if Base Sepolia || Base is present in the targetNetworks
+const rainbowGroups = (targetNetworks as unknown as chains.Chain[]).some(
+  network => network.id === chains.baseSepolia.id || network.id === chains.base.id,
+)
+  ? [
+      { groupName: "Smart Wallets", wallets: [coinbaseSmartWalletOnly] },
+      { groupName: "others", wallets },
+    ]
   : [supportedWalletGroup];
 
 /**
